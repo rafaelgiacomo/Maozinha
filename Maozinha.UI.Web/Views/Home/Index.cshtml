@@ -1,0 +1,169 @@
+﻿@model Maozinha.UI.Web.ViewModel.LoginViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<nav role="navigation" class="navbar navbar-default" style="margin-bottom: 2px;">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav rolar">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#descricao">O que é?</a></li>
+                <li><a href="#missao">Nossa missão</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="clearfix"></div>
+
+<section class="inicio" id="inicio">
+    <div class="cab_vol">
+        <h1>Voluntário</h1>
+    </div>
+    <div class="vertical"></div>
+    <div class="cab_ong">
+        <h1>ONG</h1>
+    </div>
+    <div class="voluntario">
+        <p>
+            Está procurando projetos sociais para ajudar, mas tem dificuldades para encontrar? Conecte-se em nossa rede social e de uma mãozinha para os projetos que mais se adequam ao que você procura!
+        </p>
+        <br>
+        @using (Html.BeginForm("LoginVoluntario", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <h3>Login</h3>
+            <div style="color: red;">@Model.MsgErroVoluntario</div>
+            <br/>           
+
+            <label>Usuario:</label><br>
+            @Html.EditorFor(model => model.LoginVoluntario, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.LoginVoluntario, "", new { @class = "" })
+            <br>
+            <label>Senha:</label><br>
+            @Html.PasswordFor(model => model.SenhaVoluntario, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.SenhaVoluntario, "", new { @class = "" })
+            <br>
+            <br>
+            <label id="loginbutton" class="uiButton uiButtonConfirm" for="u_0_l">
+                <input type="submit" name="login" value="Entrar" id="login" class="btn btn-primary">
+            </label>
+        }
+        <h3>Ainda não é cadastrado?</h3>
+        @Html.ActionLink("Dê uma mãozinha", "Index", "ContaVoluntario")
+    </div>
+    
+    <div class="ong">
+        <p>
+            Sua ONG tem dificuldades para encontrar pessoas dispostas a ajudar? Quer abrir ainda mais os horizontes para encontrar novos voluntários? Iniciou um projeto social e não faz idéia de como encontrar gente para apoiar? Então conecte-se em nossa rede social e solicite uma mãozinha!
+        </p>
+        <br>
+        @using (Html.BeginForm("LoginEntidade", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <h3>Login</h3>
+            <div style="color: red;">@Model.MsgErroEntidade</div>
+            <br>
+            <label>Usuario:</label><br>
+            @Html.EditorFor(model => model.LoginEntidade, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.LoginEntidade, "", new { @class = "" })
+            <br>
+            <label>Senha:</label><br>
+            @Html.PasswordFor(model => model.SenhaEntidade, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.SenhaEntidade, "", new { @class = "" })
+            <br>
+            <br>
+            <label id="loginbutton" class="uiButton uiButtonConfirm" for="u_0_l">
+                <input type="submit" name="login" value="Entrar" id="login" class="btn btn-primary">
+            </label>
+        }
+        <h3>Ainda não é cadastrado?</h3>
+        @Html.ActionLink("Dê uma mãozinha", "Index", "ContaEntidade")
+    </div>
+</section>
+<div class="clearfix"></div>
+<section class="descricao" id="descricao">
+    <div class="cab">
+        <h2> O que é?</h2>
+        <p style="font-size: 21px;">
+            Através de uma plataforma online, a “Mãozinha”, conectaremos as pessoas às entidades que precisam de mão de obra, uma verdadeira rede de ajuda, onde as organizações sem fins lucrativos poderão apresentar seu trabalho e encontrar ajuda nos usuários interessados, expondo suas demandas por mão de obra, sejam temporária ou permanentes.
+        </p>
+    </div>
+</section>
+<section class="missao" id="missao">
+    <div class="cab">
+        <h2>Nossa missão</h2>
+        <p style="font-size: 21px;">
+            Uma vez que nascemos no quinto maior país do mundo, um país muito rico em recursos, porém com dificuldades profundas em diversos setores, nos sentimos na obrigação não só de trabalhar pelos que mais necessitam, mas unir todas as pessoas que querem ajudar.
+            A Mãozinha nasce em um dos momentos mais frágeis do Brasil, a fim de conectar entidades com viés social e pessoas interessadas em tornar seu lugar, um lugar melhor.
+        </p>
+    </div>
+</section>
+<section class="contato" id="contato">
+    <div class="cab">
+        <h2>Contato</h2>
+        <div class="row content-row" style="margin-right: 0px;margin-left: 0px;">
+            <div class="col-lg-8 col-lg-offset-2">
+                <form name="sentMessage" id="contactForm" novalidate>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>*Nome</label>
+                            <input type="text" class="form-control" placeholder="Nome" id="name" required data-validation-required-message="Por favor, digite seu nome.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>*Email</label>
+                            <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Por favor, digite seu email.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Telefone</label>
+                            <input type="tel" class="form-control" placeholder="Telefone" id="phone" required data-validation-required-message="Por favor, digite o número de seu telefone..">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>*Mensagem</label>
+                            <textarea rows="5" class="form-control" placeholder="Mensagem" id="message" required data-validation-required-message="Por favor, digite uma mensagem."></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-blue btn-lg center-block" style="color: #fff;background-color: #286090;">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            $(".rolar a").click(function (event) {
+                event.preventDefault();
+                var idElemento = $(this).attr("href");
+                var deslocamento = $(idElemento).offset().top - $('ul.nav').outerHeight();;
+                $('html, body').animate({ scrollTop: deslocamento }, 'slow');
+            });
+        });
+    </script>
+
+}

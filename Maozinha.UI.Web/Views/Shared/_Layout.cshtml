@@ -1,0 +1,44 @@
+﻿@using System.Configuration
+@using Maozinha.Business
+@using Maozinha.Model
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="icon" href="~/Content/tema/images/favicon.ico" type="image/png">
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    
+    @if (!"".Equals(User.Identity.Name))
+    {
+        var usuarioBus = new UsuarioBusiness(ConfigurationManager.ConnectionStrings["Maozinha"].ConnectionString);
+        var usuario = usuarioBus.SelecionarPorLogin(User.Identity.Name);
+
+        if (usuario != null)
+        {
+            if (usuario.Descriminador == UsuarioModel.DescriminadorEntidade)
+            {
+                @Html.Partial("_MenuVoluntarioPartial")
+            }
+
+            if (usuario.Descriminador == UsuarioModel.DescriminadorVoluntario)
+            {
+                @Html.Partial("_MenuVoluntarioPartial")
+            }
+        }
+    }
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

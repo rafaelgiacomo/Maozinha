@@ -1,0 +1,308 @@
+body{
+	background-color: rgba(230,230,230,1);
+}
+
+.navbar-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 50px;
+	width:100%;
+	position: fixed;
+	z-index: 10;
+	background-color: rgb(50, 120, 186);
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+li .form-control{
+	margin-top: 8px;
+	width: 30vw;
+	margin-right: 50%;
+}
+
+.maozinha a{
+	font-family: Comfortaa;
+	font-size: 28px;
+	cursor: default;
+	text-transform: none;
+}
+
+.clr {
+	clear: both;
+}
+
+h1{
+	display: block;
+	text-align: center;
+}
+
+.inicio{
+	height: 89vh;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.cab_vol{
+	display: block;
+	width:49vw;
+	float: left;
+	text-align: center;
+		margin-top: 0px;
+	padding-top: 0px;
+}
+
+.cab_vol h1{
+	background-color: rgba(255,1,117,1);
+    color: white;
+    margin-top: 0px;
+    padding-bottom: 40px;
+    padding-right: 0;
+    padding-top: 40px;
+    font-family: Comfortaa;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.voluntario{
+	width: 48vw;
+	display: block;
+	float: left;
+	text-align: center;
+}
+
+.voluntario p{
+	position: relative;
+	font-size: 16px;
+	padding-top: 30px;
+	padding-left: 50px;
+	padding-right: 60px;
+	z-index: 3;
+}
+
+.voluntario h4{
+	font-weight: bold;
+	margin-top: 50px;
+}
+
+.vertical{
+	position: absolute;
+	float: left;
+	top: 0;
+	width: 1vw;
+	margin-left: 49vw;
+	height: 100vh;
+	background-color: rgba(50,120,186,1);
+	z-index: 1;
+}
+
+.logo{
+	position: absolute;
+	width: 100%;
+	height: auto;
+	display:block;
+	float: left;
+	top: 12vh;
+	text-align: center;
+	z-index: 2;
+}
+
+.logo img{
+	display: block;
+	padding-top: 225px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 18vw;
+	height: auto;
+}
+
+.cab_ong{
+	width: 49vw;
+	float: right;
+	text-align: center;
+}
+
+.cab_ong h1{
+	background-color: rgba(0,176,59,1);
+    color: white;
+    margin-top: 0px;
+    padding-bottom: 40px;
+    padding-right: 0;
+    padding-top: 40px;
+    font-family: Comfortaa;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.3);
+}
+
+.ong{
+	position: relative;
+	top: 0;
+	display: block;
+	width: 49vw;
+	float: right;
+	text-align: center;
+}
+
+.ong p{
+	position: relative;
+	font-size: 16px;
+	padding-top: 30px;
+	padding-left: 80px;
+	padding-right: 40px;
+	z-index: 3;
+}
+
+.descricao .cab h2{
+	width: 100%;
+	background-color: rgba(255,205,0,1);
+	padding: 30px 0 30px 30px;
+	margin-top: 12px;
+	color: #fff;
+	font-family: Comfortaa;
+	-webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.descricao p{
+	padding: 30px 160px 20px 160px;
+}
+
+.missao .cab h2{
+	width: 100%;
+	background-color: rgba(0,205,255,1);
+	padding: 30px 0 30px 30px;
+	color: #fff;
+	font-family: Comfortaa;
+	-webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.missao p{
+	padding: 30px 160px 20px 160px;
+}
+.contato .cab h2{
+	width: 100%;
+	margin-bottom: 50PX;
+	background-color: black;
+	padding: 30px 0 30px 30px;
+	color: #fff;
+	font-family: Comfortaa;
+	-webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+    font-weight: 700;
+    background-color: rgba(50,120,186,1);
+    border-color: rgba(50,120,186,1);
+}
+
+/*=========================================================================================================================================
+Inicial_Voluntario
+===========================================================================================================================================*/
+
+.filtro{
+	border-right: 1px solid rgb(200, 200,200);
+	height: auto;
+}
+
+.checkbox{
+	padding-left: 10px;
+}
+
+.dia{
+	padding-top: 5px;
+	border-top: 1px solid rgb(200, 200,200);
+}
+
+.periodo{
+	padding-top: 5px;
+	border-top: 1px solid rgb(200, 200,200);
+}
+
+.busca{
+	width: 20vw;
+	padding-top: 15px;
+	float: right;
+}
+
+.resultado{
+	position: relative;
+	background-color: #fff;
+	margin-top: 60px;
+	padding-bottom: 30px;
+	-webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.5);
+}
+
+.resultado h3{
+	color: rgb(120, 120, 120);
+	padding-top: 30px;
+	padding-left: 30px;
+}
+
+.resultado img{
+	width: 25%;
+	height: 250px;
+	float: left;
+	margin-left: 30px;
+	margin-right: 15px;
+	border: 1px solid rgb(200, 200, 200);
+}
+
+.resultado .info{
+	padding-left: 30px;
+}
+
+.resultado .btn-primary{
+	position: absolute;
+    bottom: 10px;
+    right: 30px;
+}
+
+.vagas{
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+
+.vagas h4{
+	display: inline-block;
+	font-size: 22px;
+}
+
+.vagas .numero{
+	padding-left: 5px;
+	font-size: 22px;
+	font-weight: 600;
+	color: green;
+}
+
+.menu_pagina{
+	padding-top: 20px;
+}
+
+.menu_pagina img{
+	border: 1px solid rgb(200, 200, 200);
+}
+
+.menu_pagina h2{
+	color: rgb(140, 140, 140);
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.borda{
+	color: rgb(130,130,130);
+	border-bottom: 1px solid rgb(130,130,130);
+}

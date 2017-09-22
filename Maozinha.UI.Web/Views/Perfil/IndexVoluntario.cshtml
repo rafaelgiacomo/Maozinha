@@ -1,0 +1,171 @@
+﻿@model Maozinha.UI.Web.ViewModel.ContaEntidadeViewModel
+
+@{
+    ViewBag.Title = "Inicio - Voluntário";
+}
+
+<div class="container-fluid">
+    <div class="col-md-2">
+        <div class="filtro">
+            <div class="categoria">
+                <h4><b>Categorias</b></h4>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Crianças
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Saúde
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Animais
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Moradia
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Outros
+                    </label>
+                </div>
+            </div>
+            <div class="dia">
+                <h4><b>Dia</b></h4>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Segunda-feira
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Terça-feira
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Quarta-feira
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Quinta-feira
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Sexta-feira
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Sábado
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Domingo
+                    </label>
+                </div>
+            </div>
+            <div class="periodo">
+                <h4><b>Período</b></h4>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Manhã
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Tarde
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Noite
+                    </label>
+                </div>
+            </div>
+            <div class="local">
+                <h4><b>Local</b></h4>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Zona Leste
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Zona Oeste
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Zona Norte
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Zona Sul
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Outras cidades
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="form-group busca">
+            <input type="search" class="form-control" id="busca" placeholder="Buscar ONG pelo nome">
+        </div>
+        <div class="resultado">
+            <h3>Teto</h3>
+            <div class="vagas">
+                <h4>Vagas:</h4><span class="numero">5</span>
+            </div>
+            <img src="images/teto.png" height="380" width="380">
+            <div class="info">
+                <h4>Sobre:</h4><p>
+                    Arrecadação de fundos com apresentação de bateria universitária
+                </p>
+                <h4>Local:</h4>Av Jorge Medeiros Ribeiro, 560
+                <h4>Data:</h4>19/2/2016
+                <br>
+                <br>
+                <a href="">Mais informações</a>
+            </div>
+            <label id="loginbutton2" class="uiButton uiButtonConfirm" for="u_0_l">
+                <input type="submit" name="login" value="Dê uma mãozinha" id="login" class="btn btn-primary">
+            </label>
+            <div class="clearfix"></div>
+        </div>
+        <div class="resultado">
+            <h3>GRAAC</h3>
+            <div class="vagas">
+                <h4>Vagas:</h4><span class="numero">27</span>
+            </div>
+            <img src="images/graac.jpg" height="380" width="380">
+            <div class="info">
+                <h4>Sobre:</h4><p>
+                    Projeto com crianças carentes na região da zona leste
+                </p>
+                <h4>Local:</h4>Avenida Ministro Oscar Saraiva, 40
+                <h4>Data:</h4>16/12/2016
+                <br>
+                <br>
+                <a href="">Mais informações</a>
+            </div>
+            <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
+                <input type="submit" name="login" value="Dê uma mãozinha" id="login" class="btn btn-primary">
+            </label>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

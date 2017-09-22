@@ -1,0 +1,11 @@
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Business.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Business.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Interface.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Model.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Repository.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Interface.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Model.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\bin\Debug\Maozinha.Repository.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\obj\Debug\Maozinha.Business.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\obj\Debug\Maozinha.Business.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Business\obj\Debug\Maozinha.Business.pdb

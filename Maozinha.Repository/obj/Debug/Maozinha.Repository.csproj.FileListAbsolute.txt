@@ -1,0 +1,9 @@
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Repository.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Repository.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Interface.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Model.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Interface.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\bin\Debug\Maozinha.Model.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.pdb

@@ -1,0 +1,5 @@
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Interface\bin\Debug\Maozinha.Interface.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Interface\bin\Debug\Maozinha.Interface.pdb
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.dll
+C:\Users\Rafael\documents\visual studio 2015\Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.pdb
