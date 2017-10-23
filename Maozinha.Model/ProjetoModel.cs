@@ -36,7 +36,7 @@ namespace Maozinha.Model
 
         public EntidadeModel Entidade { get; set; }
 
-        public CategoriaModel Categoria { get; set; }
+        public CategoriaProjetoModel Categoria { get; set; }
 
         public ArquivoModel Arquivo { get; set; }
 

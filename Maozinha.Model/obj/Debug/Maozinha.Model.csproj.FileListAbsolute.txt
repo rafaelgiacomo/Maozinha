@@ -6,3 +6,4 @@ C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Model\bin\Deb
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Model\bin\Debug\Maozinha.Model.pdb
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Model\obj\Debug\Maozinha.Model.dll
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Model\obj\Debug\Maozinha.Model.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Model\obj\Debug\Maozinha.Model.csprojResolveAssemblyReference.cache

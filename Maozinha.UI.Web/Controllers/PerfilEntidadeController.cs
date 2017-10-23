@@ -1,8 +1,4 @@
 ﻿using Maozinha.UI.Web.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Maozinha.Business;
 using Maozinha.Model;
@@ -51,6 +47,13 @@ namespace Maozinha.UI.Web.Controllers
             }
 
             return View(viewModel);
+        }
+
+        public ActionResult AdicionarProjeto()
+        {
+            ProjetoViewModel viewModel = new ProjetoViewModel();
+
+            return View();
         }
 
         public ActionResult IndexVoluntario()

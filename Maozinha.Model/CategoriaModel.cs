@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maozinha.Model
 {
-    public class CategoriaModel
+    public class CategoriaProjetoModel
     {
         #region Propriedades
 

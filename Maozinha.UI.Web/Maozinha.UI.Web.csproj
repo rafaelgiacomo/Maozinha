@@ -208,6 +208,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\IndexProjetosEntidadeViewModel.cs" />
+    <Compile Include="ViewModel\ProjetoViewModel.cs" />
     <Compile Include="ViewModel\UsuarioViewModel.cs" />
     <Compile Include="ViewModel\ContaEntidadeViewModel.cs" />
     <Compile Include="ViewModel\ContaVoluntarioViewModel.cs" />
@@ -274,6 +275,7 @@
     <Content Include="Views\Shared\_MenuEntidadePartial.cshtml" />
     <Content Include="Views\Shared\_MenuLeftEntidadePartial.cshtml" />
     <Content Include="Views\PerfilEntidade\Projetos.cshtml" />
+    <Content Include="Views\PerfilEntidade\AdicionarProjeto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
