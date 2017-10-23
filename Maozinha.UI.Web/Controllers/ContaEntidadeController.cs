@@ -33,6 +33,7 @@ namespace Maozinha.UI.Web.Controllers
                 _entidadeBusiness.InserirEntidade(model);
 
             }
+
             return View();
         }
 

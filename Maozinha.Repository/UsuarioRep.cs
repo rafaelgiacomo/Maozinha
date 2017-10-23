@@ -149,6 +149,7 @@ namespace Maozinha.Repository
             entidade.Telefone = reader[COLUNA_TELEFONE].ToString();
             entidade.Login = reader[COLUNA_LOGIN].ToString();
             entidade.Senha = reader[COLUNA_SENHA].ToString();
+            entidade.Descricao = reader[COLUNA_DESCRICAO].ToString();
 
             var roleId = reader[COLUNA_ROLE_ID].ToString();
             var arquivoId = reader[COLUNA_ARQUIVO_ID].ToString();

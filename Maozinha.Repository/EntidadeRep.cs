@@ -12,8 +12,9 @@ namespace Maozinha.Repository
 
         #region Constantes
 
-        private const string PROCEDURE_LISTAR_TODOS = "LISTAR_TODOS_ENTIDADES";
-        private const string PROCEDURE_SELECIONAR_ID = "SELECIONAR_ENTIDADE_ID";
+        private const string PROCEDURE_LISTAR_TODOS = "SP_LISTAR_TODOS_ENTIDADES";
+        private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_ENTIDADE_ID";
+        private const string PROCEDURE_SELECIONAR_LOGIN = "SP_SELECIONAR_ENTIDADE_LOGIN";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_ENTIDADE";
 
         private const string COLUNA_USUARIO_ID = "UsuarioId";
@@ -37,23 +38,23 @@ namespace Maozinha.Repository
         {
             try
             {
-                string[] parameters = 
+                string[] parameters =
                 {
                     UsuarioRep.COLUNA_NOME, UsuarioRep.COLUNA_UF, UsuarioRep.COLUNA_CIDADE, UsuarioRep.COLUNA_ENDERECO,
                     UsuarioRep.COLUNA_EMAIL, UsuarioRep.COLUNA_TELEFONE, UsuarioRep.COLUNA_LOGIN, UsuarioRep.COLUNA_SENHA,
-                    UsuarioRep.COLUNA_ROLE_ID, UsuarioRep.COLUNA_DESCRIMINADOR, COLUNA_CNPJ
+                    UsuarioRep.COLUNA_ROLE_ID, UsuarioRep.COLUNA_DESCRIMINADOR, COLUNA_CNPJ, UsuarioRep.COLUNA_DESCRICAO
                 };
 
-                object[] values = 
+                object[] values =
                 {
                     entidade.Nome, entidade.Uf, entidade.Cidade, entidade.Endereco, entidade.Email, entidade.Telefone,
                     entidade.Login, entidade.Senha, entidade.RoleId, entidade.Descriminador,
-                    entidade.Cnpj
+                    entidade.Cnpj, entidade.Descricao
                 };
 
                 _context.ExecuteProcedureNoReturn(PROCEDURE_SALVAR, parameters, values);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -96,7 +97,7 @@ namespace Maozinha.Repository
                 string[] parameters = { UsuarioRep.COLUNA_LOGIN };
                 object[] values = { entidade.Login };
 
-                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_SELECIONAR_ID, parameters, values);
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_SELECIONAR_LOGIN, parameters, values);
 
                 if (reader.Read())
                 {
@@ -136,7 +137,7 @@ namespace Maozinha.Repository
 
                 return lista;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
             }
@@ -160,9 +161,10 @@ namespace Maozinha.Repository
             entidade.Login = reader[UsuarioRep.COLUNA_LOGIN].ToString();
             entidade.Senha = reader[UsuarioRep.COLUNA_SENHA].ToString();
             entidade.Cnpj = reader[COLUNA_CNPJ].ToString();
+            entidade.Descricao = reader[UsuarioRep.COLUNA_DESCRICAO].ToString();
 
-            var roleId = reader[UsuarioRep.COLUNA_NOME].ToString();
-            var arquivoId = reader[UsuarioRep.COLUNA_NOME].ToString();
+            var roleId = reader[UsuarioRep.COLUNA_ROLE_ID].ToString();
+            var arquivoId = reader[UsuarioRep.COLUNA_ARQUIVO_ID].ToString();
             var descriminador = reader[UsuarioRep.COLUNA_DESCRIMINADOR].ToString();
 
             if (!"".Equals(roleId))

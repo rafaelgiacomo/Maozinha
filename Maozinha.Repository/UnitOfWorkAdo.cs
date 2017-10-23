@@ -16,6 +16,7 @@ namespace Maozinha.Repository
         private EntidadeRep _entidadeRep;
         private VoluntarioRep _voluntarioRep;
         private TipoUsuarioRep _tipoUsuarioRep;
+        private ProjetoRep _projetoRep;
         #pragma warning restore 649
 
         public TipoUsuarioRep TiposUsuario
@@ -66,6 +67,17 @@ namespace Maozinha.Repository
             }
         }
 
+        public ProjetoRep Projetos
+        {
+            get
+            {
+                if (_projetoRep == null)
+                {
+                    _projetoRep = new ProjetoRep(_context);
+                }
+                return _projetoRep;
+            }
+        }
         #endregion
 
         #region Metodos Publicos

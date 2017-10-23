@@ -24,6 +24,21 @@ BEGIN
 END
 GO
 
+--Selecionar Usuario por login
+--===============================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_ENTIDADE_LOGIN]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_ENTIDADE_LOGIN]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_ENTIDADE_LOGIN]
+	@Login varchar(max)
+AS
+BEGIN
+	SELECT * FROM [Usuario] u, [Entidade] e WHERE u.Id = e.UsuarioId AND [Login] = @Login
+END
+GO
+
 
 --====================================================== PROCEDURES TABELA TIPO USUARIO =======================================================================
 
@@ -112,5 +127,51 @@ BEGIN
 	SET @ULTIMO_ID = Scope_identity()
 
 	INSERT INTO [Voluntario]([UsuarioId], [Cpf]) VALUES (@ULTIMO_ID, @Cpf)
+END
+GO
+
+
+--====================================================== PROCEDURES TABELA PROJETO =======================================================================
+
+--Salvar Projeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SALVAR_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SALVAR_PROJETO]
+	@Nome varchar(max),
+	@Descricao varchar(max),
+	@DataInicio varchar(max),
+	@DataFim varchar(max),
+	@Uf varchar(max),
+	@Cidade varchar(max),
+	@Endereco varchar(max),
+	@QtdVagas int,
+	@EntidadeId int,
+	@CategoriaId int,
+	@ArquivoId int = NULL
+AS
+BEGIN
+	INSERT INTO [Projeto]([Nome], [Descricao], [DataInicio], [DataFim], [Uf], [Cidade], [Endereco], [QtdVagas], 
+		[EntidadeId], [CategoriaId], [ArquivoId])
+		VALUES (@Nome, @Descricao, @DataInicio, @DataFim, @Uf, @Cidade, @Endereco, @QtdVagas, @EntidadeId, 
+		@CategoriaId, @ArquivoId)
+END
+GO
+
+--Listar Projetos Cliente
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_ENTIDADE]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_PROJETOS_ENTIDADE]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_ENTIDADE]
+	@EntidadeId int
+AS
+BEGIN
+	SELECT * FROM [Projeto] WHERE [EntidadeId] = @EntidadeId
 END
 GO

@@ -1,0 +1,29 @@
+﻿@model Maozinha.UI.Web.ViewModel.ContaEntidadeViewModel
+
+@{
+    ViewBag.Title = "Perfil Entidade";
+}
+
+<div class="col-md-12">
+    <h3 class="borda">Sobre a Entidade</h3>
+
+    <div class="resultado">
+        <h3>@Model.Nome</h3><hr />
+
+        <div class="info">
+            <h4>Sobre:</h4><p>
+                @Model.Descricao
+            </p>
+            <h4>Endereço: </h4>@Model.Endereco - @Model.Uf - @Model.Cidade
+            <h4>Email: </h4>@Model.Email
+            <h4>Telefone: </h4>@Model.Telefone
+            <h4>CNPJ: </h4>@Model.Cnpj
+            <br>
+            <br>
+        </div>
+        <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
+            <input type="submit" name="login" value="Editar informações de perfil" id="login" class="btn btn-primary">
+        </label>
+        <div class="clearfix"></div>
+    </div>
+</div>

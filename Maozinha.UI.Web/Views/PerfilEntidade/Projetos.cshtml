@@ -1,0 +1,38 @@
+﻿@model Maozinha.UI.Web.ViewModel.IndexProjetosEntidadeViewModel
+
+@{
+    ViewBag.Title = "Projetos de Entidade";
+}
+
+<div class="col-md-12">
+    <h3 class="borda">Projetos Cadastrados</h3>
+
+    <br>
+    @Html.ActionLink("Adicionar Projeto", "PerfilEntidade", "PerfilEntidade", null, new { @class = "btn btn-primary" })
+
+    @foreach (var proj in Model.ListaProjetos)
+    {
+        <div class="resultado">
+            <h3>@proj.Nome</h3>
+            <div class="vagas">
+                <h4>Vagas:</h4><span class="numero">@proj.QtdVagas</span>
+            </div>
+            <img src="images/graac.jpg" height="380" width="380">
+            <div class="info">
+                <h4>Sobre:</h4><p>
+                    @proj.Descricao
+                </p>
+                <h4>Endereço: </h4>@proj.Endereco - @proj.Uf - @proj.Cidade
+                <h4>Data Início: </h4>@proj.DataInicio
+                <h4>Data Fim: </h4>@proj.DataFim
+                <br>
+                <br>
+            </div>
+            <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
+                <input type="submit" name="login" value="Editar informações" id="login" class="btn btn-primary">
+            </label>
+            <div class="clearfix"></div>
+        </div>
+    }
+
+</div>

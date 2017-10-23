@@ -26,12 +26,12 @@ namespace Maozinha.UI.Web.Controllers
                 {
                     if (usuario.Descriminador == UsuarioModel.DescriminadorEntidade)
                     {
-                        return RedirectToAction("IndexEntidade", "Perfil");
+                        return RedirectToAction("IndexEntidade", "PerfilEntidade");
                     }
 
                     if (usuario.Descriminador == UsuarioModel.DescriminadorVoluntario)
                     {
-                        return RedirectToAction("IndexVoluntario", "Perfil");
+                        return RedirectToAction("IndexVoluntario", "PerfilVoluntario");
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace Maozinha.UI.Web.Controllers
                                 return Redirect(returnUrl);
                             }
 
-                            return RedirectToAction("IndexVoluntario", "Perfil");
+                            return RedirectToAction("IndexVoluntario", "PerfilVoluntario");
                         }
                         else
                         {
@@ -141,7 +141,7 @@ namespace Maozinha.UI.Web.Controllers
                                 return Redirect(returnUrl);
                             }
 
-                            return RedirectToAction("IndexEntidade", "Perfil");
+                            return RedirectToAction("IndexEntidade", "PerfilEntidade");
                         }
                         else
                         {
