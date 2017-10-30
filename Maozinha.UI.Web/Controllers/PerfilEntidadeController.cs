@@ -4,6 +4,7 @@ using Maozinha.Business;
 using Maozinha.Model;
 using System.Web.Security;
 using System.Configuration;
+using System;
 
 namespace Maozinha.UI.Web.Controllers
 {
@@ -14,6 +15,7 @@ namespace Maozinha.UI.Web.Controllers
 
         private readonly EntidadeBusiness _entidadeBusiness;
         private readonly ProjetoBusiness _projBusiness;
+        private readonly CategoriaProjetoBusiness _categoriaBusiness;
 
         #endregion
 
@@ -51,9 +53,120 @@ namespace Maozinha.UI.Web.Controllers
 
         public ActionResult AdicionarProjeto()
         {
-            ProjetoViewModel viewModel = new ProjetoViewModel();
+            var listaCategorias = _categoriaBusiness.ListarTodasCategorias();
 
-            return View();
+            ProjetoViewModel viewModel = new ProjetoViewModel(listaCategorias);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AdicionarProjeto(ProjetoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
+                var model = viewModel.ParaModel();
+
+                model.EntidadeId = entidade.Id;
+
+                _projBusiness.InserirProjeto(model);
+
+                return RedirectToAction("Projetos");
+            }
+            else
+            {
+                return View(viewModel);
+            }
+        }
+
+        public ActionResult EditarProjeto(int id)
+        {
+
+            var entidade = _projBusiness.SelecionarProjetoPorId(id);
+
+            if (entidade == null)
+            {
+                TempData["mensagem"] = "Ocorreu um erro ao carregar dados.";
+                return RedirectToAction("Erro");
+            }
+
+            var listaCategorias = _categoriaBusiness.ListarTodasCategorias();
+
+            ProjetoViewModel viewModel = new ProjetoViewModel(listaCategorias);
+
+            viewModel.ParaViewModel(entidade);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarProjeto(ProjetoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var entidade = viewModel.ParaModel();
+
+                _projBusiness.AlterarProjeto(entidade);
+
+                return RedirectToAction("Projetos");
+            }
+
+            return View(viewModel);
+        }
+
+        public ActionResult ExcluirProjeto(int id)
+        {
+            var entidade = _projBusiness.SelecionarProjetoPorId(id);
+
+            if (entidade == null)
+            {
+                TempData["mensagem"] = "Ocorreu um erro ao carregar dados.";
+                return RedirectToAction("Erro");
+            }
+
+            var listaCategorias = _categoriaBusiness.ListarTodasCategorias();
+
+            ProjetoViewModel viewModel = new ProjetoViewModel(listaCategorias);
+
+            viewModel.ParaViewModel(entidade);
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("ExcluirProjeto")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExcluirConfirmado(int id)
+        {
+            try
+            {
+                _projBusiness.ExcluirProjeto(id);
+                return RedirectToAction("Projetos");
+            }
+            catch (Exception ex)
+            {
+                TempData["mensagem"] = ex.Message;
+                return RedirectToAction("Erro");
+            }
+        }
+
+        public ActionResult VerVoluntarios(int id)
+        {
+
+            var entidade = _projBusiness.SelecionarProjetoPorId(id);
+
+            if (entidade == null)
+            {
+                TempData["mensagem"] = "Ocorreu um erro ao carregar dados.";
+                return RedirectToAction("Erro");
+            }
+
+            VerVoluntariosViewModel viewModel = new VerVoluntariosViewModel();
+
+            viewModel.Projeto = entidade;
+
+            return View(viewModel);
         }
 
         public ActionResult IndexVoluntario()
@@ -71,6 +184,7 @@ namespace Maozinha.UI.Web.Controllers
         {
             _entidadeBusiness = new EntidadeBusiness(_connectionString);
             _projBusiness = new ProjetoBusiness(_connectionString);
+            _categoriaBusiness = new CategoriaProjetoBusiness(_connectionString);
         }
 
         #endregion

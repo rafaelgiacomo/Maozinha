@@ -1,3 +1,9 @@
+USE [master]
+GO
+
+CREATE DATABASE [Maozinha]
+GO
+
 USE [Maozinha]
 GO
 
@@ -13,10 +19,32 @@ create table Arquivo(
 )
 GO
 
+create table ArquivoEntidade(
+	[ArquivoId] [int] NOT NULL,
+	[EntidadeId] [int] NOT NULL,
+	CONSTRAINT [PK_dbo.ArquivoEntidade] PRIMARY KEY CLUSTERED
+	(
+		[EntidadeId] ASC,
+		[ArquivoId] ASC		
+	)
+)
+GO
+
+create table ArquivoVoluntario(
+	[ArquivoId] [int] NOT NULL,
+	[VoluntarioId] [int] NOT NULL,
+	CONSTRAINT [PK_dbo.ArquivoVoluntario] PRIMARY KEY CLUSTERED
+	(
+		[VoluntarioId] ASC,
+		[ArquivoId] ASC		
+	)
+)
+GO
+
 create table TipoUsuario(
 	[Id] [int],
 	[Descricao] [varchar](max) NOT NULL,
-	CONSTRAINT [PK_dbo.Role] PRIMARY KEY CLUSTERED
+	CONSTRAINT [PK_dbo.TipoUsuario] PRIMARY KEY CLUSTERED
 	(
 		[Id] ASC
 	)
@@ -37,7 +65,7 @@ create table Usuario(
 	[ArquivoId] [int],
 	[Descriminador] [int],
 	[Descricao][varchar](max),
-	CONSTRAINT [PK_dbo.Pessoa] PRIMARY KEY CLUSTERED
+	CONSTRAINT [PK_dbo.Usuario] PRIMARY KEY CLUSTERED
 	(
 		[Id] ASC
 	)
@@ -57,6 +85,7 @@ GO
 create table Voluntario(
 	[UsuarioId] [int] NOT NULL,
 	[Cpf] [varchar](max) NOT NULL,
+	[DataNascimento] [date] NOT NULL,
 	CONSTRAINT [PK_dbo.Voluntario] PRIMARY KEY CLUSTERED
 	(
 		[UsuarioId] ASC
@@ -161,6 +190,34 @@ GO
 ALTER TABLE [dbo].[VoluntarioProjeto] CHECK CONSTRAINT [FK_dbo.VoluntarioProjeto_dbo.Voluntario_VoluntarioId]
 GO
 
+--Tabela ArquivoEntidade
+ALTER TABLE [dbo].[ArquivoEntidade]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArquivoEntidade_dbo.Arquivo_ArquivoId] FOREIGN KEY([ArquivoId])
+REFERENCES [dbo].[Arquivo] ([Id])
+GO
+ALTER TABLE [dbo].[ArquivoEntidade] CHECK CONSTRAINT [FK_dbo.ArquivoEntidade_dbo.Arquivo_ArquivoId]
+GO
+
+ALTER TABLE [dbo].[ArquivoEntidade]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArquivoEntidade_dbo.Entidade_EntidadeId] FOREIGN KEY([EntidadeId])
+REFERENCES [dbo].[Entidade] ([UsuarioId])
+GO
+ALTER TABLE [dbo].[ArquivoEntidade] CHECK CONSTRAINT [FK_dbo.ArquivoEntidade_dbo.Entidade_EntidadeId]
+GO
+
+--Tabela ArquivoVoluntario
+ALTER TABLE [dbo].[ArquivoVoluntario]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArquivoVoluntario_dbo.Arquivo_ArquivoId] FOREIGN KEY([ArquivoId])
+REFERENCES [dbo].[Arquivo] ([Id])
+GO
+ALTER TABLE [dbo].[ArquivoVoluntario] CHECK CONSTRAINT [FK_dbo.ArquivoVoluntario_dbo.Arquivo_ArquivoId]
+GO
+
+ALTER TABLE [dbo].[ArquivoVoluntario]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArquivoVoluntario_dbo.Voluntatio_VoluntarioId] FOREIGN KEY([VoluntarioId])
+REFERENCES [dbo].[Voluntario] ([UsuarioId])
+GO
+ALTER TABLE [dbo].[ArquivoVoluntario] CHECK CONSTRAINT [FK_dbo.ArquivoVoluntario_dbo.Voluntatio_VoluntarioId]
+GO
+
+--Populando base de dados para uso inicial
+--===============================================================================================================
 INSERT INTO TipoUsuario (Id, Descricao) VALUES (1, 'Voluntario');
 GO
 INSERT INTO TipoUsuario (Id, Descricao) VALUES (2, 'Entidade');

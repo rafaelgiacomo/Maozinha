@@ -1,0 +1,66 @@
+﻿@model Maozinha.UI.Web.ViewModel.ProjetoViewModel
+
+@{
+    ViewBag.Title = "Excluir Projeto";
+}
+
+<div class="col-md-12">
+    <h4>Tem certeza que deseja excluir esse registro?</h4>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                <label class="control-label">Código</label>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+
+            <dt>
+                <label class="control-label">Nome</label>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+
+            <dt>
+                <label class="control-label">Data Início</label>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataInicio)
+            </dd>
+
+            <dt>
+                <label class="control-label">Data Fim</label>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataFim)
+            </dd>
+
+            <dt>
+                <label class="control-label">Qtd Vagas</label>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.QtdVagas)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-success" />
+                @Html.ActionLink("Voltar", "Projetos", null, new { @class = "btn btn-info" })
+            </div>
+        }
+    </div>
+</div>
+
+
+

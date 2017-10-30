@@ -16,6 +16,8 @@ namespace Maozinha.Repository
         private const string PROCEDURE_LISTAR_PROJETOS_ENTIDADE = "SP_LISTAR_PROJETOS_ENTIDADE";
         private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_PROJETO_ID";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_PROJETO";
+        private const string PROCEDURE_ALTERAR = "SP_ALTERAR_PROJETO";
+        private const string PROCEDURE_EXCLUIR = "SP_EXCLUIR_PROJETO";
 
         public const string COLUNA_ID = "Id";
         public const string COLUNA_NOME = "Nome";
@@ -36,12 +38,48 @@ namespace Maozinha.Repository
 
         public void Alterar(ProjetoModel entidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string[] parameters =
+                {
+                    COLUNA_NOME, COLUNA_DESCRICAO, COLUNA_DATA_INICIO, COLUNA_DATA_FIM, COLUNA_UF, COLUNA_CIDADE, COLUNA_ENDERECO,
+                    COLUNA_QTD_VAGAS, COLUNA_ENTIDADE_ID, COLUNA_CATEGORIA_ID, COLUNA_ID
+                };
+
+                object[] values =
+                {
+                    entidade.Nome, entidade.Descricao, entidade.DataInicio, entidade.DataFim, entidade.Uf, entidade.Cidade, entidade.Endereco,
+                    entidade.QtdVagas, entidade.EntidadeId,entidade.CategoriaId, entidade.Id
+                };
+
+                _context.ExecuteProcedureNoReturn(PROCEDURE_ALTERAR, parameters, values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Excluir(ProjetoModel entidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string[] parameters =
+                {
+                    COLUNA_ID
+                };
+
+                object[] values =
+                {
+                    entidade.Id
+                };
+
+                _context.ExecuteProcedureNoReturn(PROCEDURE_EXCLUIR, parameters, values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Inserir(ProjetoModel entidade)
@@ -51,13 +89,13 @@ namespace Maozinha.Repository
                 string[] parameters =
                 {
                     COLUNA_NOME, COLUNA_DESCRICAO, COLUNA_DATA_INICIO, COLUNA_DATA_FIM, COLUNA_UF, COLUNA_CIDADE, COLUNA_ENDERECO,
-                    COLUNA_QTD_VAGAS, COLUNA_ARQUIVO_ID, COLUNA_ENTIDADE_ID, COLUNA_CATEGORIA_ID
+                    COLUNA_QTD_VAGAS, COLUNA_ENTIDADE_ID, COLUNA_CATEGORIA_ID
                 };
 
                 object[] values =
                 {
                     entidade.Nome, entidade.Descricao, entidade.DataInicio, entidade.DataFim, entidade.Uf, entidade.Cidade, entidade.Endereco,
-                    entidade.QtdVagas, entidade.ArquivoId, entidade.EntidadeId,entidade.CategoriaId
+                    entidade.QtdVagas, entidade.EntidadeId,entidade.CategoriaId
                 };
 
                 _context.ExecuteProcedureNoReturn(PROCEDURE_SALVAR, parameters, values);
@@ -167,14 +205,42 @@ namespace Maozinha.Repository
             entidade.Cidade = reader[COLUNA_CIDADE].ToString();
             entidade.Endereco = reader[COLUNA_ENDERECO].ToString();
             entidade.Descricao = reader[COLUNA_DESCRICAO].ToString();
-            entidade.DataInicio = reader[COLUNA_DATA_INICIO].ToString();
-            entidade.DataFim = reader[COLUNA_DATA_FIM].ToString();
 
             var qtdVagas = reader[COLUNA_QTD_VAGAS].ToString();
+            var entidadeId = reader[COLUNA_ENTIDADE_ID].ToString();
+            var categoriaId = reader[COLUNA_CATEGORIA_ID].ToString();
+            var arquivoId = reader[COLUNA_ARQUIVO_ID].ToString();
+            var dataInicio = reader[COLUNA_DATA_INICIO].ToString();
+            var dataFim = reader[COLUNA_DATA_FIM].ToString();
 
             if (!"".Equals(qtdVagas))
             {
                 entidade.QtdVagas = int.Parse(qtdVagas);
+            }
+
+            if (!"".Equals(entidadeId))
+            {
+                entidade.EntidadeId = int.Parse(entidadeId);
+            }
+
+            if (!"".Equals(categoriaId))
+            {
+                entidade.CategoriaId = int.Parse(categoriaId);
+            }
+
+            if (!"".Equals(arquivoId))
+            {
+                entidade.ArquivoId = int.Parse(arquivoId);
+            }
+
+            if (!"".Equals(dataInicio))
+            {
+                entidade.DataInicio = string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(dataInicio));
+            }
+
+            if (!"".Equals(dataFim))
+            {
+                entidade.DataFim = string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(dataFim));
             }
 
             return entidade;

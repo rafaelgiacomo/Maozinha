@@ -5,34 +5,74 @@
 }
 
 <div class="col-md-12">
-    <h3 class="borda">Projetos Cadastrados</h3>
+    <h3 class="borda">Projetos da Entidade</h3>
 
     <br>
-    @Html.ActionLink("Adicionar Projeto", "PerfilEntidade", "PerfilEntidade", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Adicionar Projeto", "AdicionarProjeto", "PerfilEntidade", null, new { @class = "btn btn-primary" })
+    <br><br>
 
-    @foreach (var proj in Model.ListaProjetos)
-    {
-        <div class="resultado">
-            <h3>@proj.Nome</h3>
-            <div class="vagas">
-                <h4>Vagas:</h4><span class="numero">@proj.QtdVagas</span>
-            </div>
-            <img src="images/graac.jpg" height="380" width="380">
-            <div class="info">
-                <h4>Sobre:</h4><p>
-                    @proj.Descricao
-                </p>
-                <h4>Endereço: </h4>@proj.Endereco - @proj.Uf - @proj.Cidade
-                <h4>Data Início: </h4>@proj.DataInicio
-                <h4>Data Fim: </h4>@proj.DataFim
+    <div class="col-md-12 resultado">
+
+            <div class="box-body">
                 <br>
-                <br>
-            </div>
-            <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
-                <input type="submit" name="login" value="Editar informações" id="login" class="btn btn-primary">
-            </label>
-            <div class="clearfix"></div>
-        </div>
-    }
+                <table id="projetos" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Data Início</th>
+                            <th>Data Fim</th>
+                            <th>Qtd Vagas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListaProjetos)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Nome</td>
+                                <td>@item.DataInicio</td>
+                                <td>@item.DataFim</td>
+                                <td>@item.QtdVagas</td>
+                                <td>
+                                    @Html.ActionLink("Ver Voluntários", "VerVoluntarios", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+                                    @Html.ActionLink("Editar", "EditarProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-success btn-xs" })
+                                    @Html.ActionLink("Excluir", "ExcluirProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>CNPJ</th>
+                            <th>N° Leitos</th>
+                            <th>Nome do diretor</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
 
 </div>
+
+@section scripts
+{
+    <link href="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#projetos').DataTable({
+                language: {
+                    "url": 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json'
+                }
+            });
+        });
+    </script>
+}

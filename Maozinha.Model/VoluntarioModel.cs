@@ -13,6 +13,8 @@ namespace Maozinha.Model
 
         public string Cpf { get; set; }
 
+        public string DataNascimento { get; set; }
+
         public List<ProjetoModel> Projetos { get; set; }
 
         #endregion

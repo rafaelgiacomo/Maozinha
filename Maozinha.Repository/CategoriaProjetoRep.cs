@@ -12,8 +12,8 @@ namespace Maozinha.Repository
 
         #region Constantes
 
-        private const string PROCEDURE_LISTAR_TODOS = "SP_LISTAR_TODAS_CATEGORIAS";
-        private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_CATEGORIA_ID";
+        private const string PROCEDURE_LISTAR_TODOS = "SP_LISTAR_TODAS_CATEGORIAS_PROJETO";
+        private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_CATEGORIA_PROJETO_ID";
 
         private const string COLUNA_ID = "Id";
         private const string COLUNA_DESCRICAO = "Descricao";
@@ -101,8 +101,8 @@ namespace Maozinha.Repository
         {
             var entidade = new CategoriaProjetoModel();
 
-            entidade.Id = Convert.ToInt32(reader[UsuarioRep.COLUNA_ID]);
-            entidade.Descricao = reader[UsuarioRep.COLUNA_NOME].ToString();
+            entidade.Id = Convert.ToInt32(reader[COLUNA_ID]);
+            entidade.Descricao = reader[COLUNA_DESCRICAO].ToString();
 
             return entidade;
         }

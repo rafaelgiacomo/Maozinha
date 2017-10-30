@@ -130,7 +130,6 @@ BEGIN
 END
 GO
 
-
 --====================================================== PROCEDURES TABELA PROJETO =======================================================================
 
 --Salvar Projeto
@@ -143,11 +142,11 @@ GO
 CREATE PROCEDURE [DBO].[SP_SALVAR_PROJETO]
 	@Nome varchar(max),
 	@Descricao varchar(max),
-	@DataInicio varchar(max),
-	@DataFim varchar(max),
-	@Uf varchar(max),
-	@Cidade varchar(max),
-	@Endereco varchar(max),
+	@DataInicio varchar(max) = NULL,
+	@DataFim varchar(max) = NULL,
+	@Uf varchar(max) = NULL,
+	@Cidade varchar(max) = NULL,
+	@Endereco varchar(max) = NULL,
 	@QtdVagas int,
 	@EntidadeId int,
 	@CategoriaId int,
@@ -158,6 +157,34 @@ BEGIN
 		[EntidadeId], [CategoriaId], [ArquivoId])
 		VALUES (@Nome, @Descricao, @DataInicio, @DataFim, @Uf, @Cidade, @Endereco, @QtdVagas, @EntidadeId, 
 		@CategoriaId, @ArquivoId)
+END
+GO
+
+--Alterar Projeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_ALTERAR_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_ALTERAR_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_ALTERAR_PROJETO]
+	@Id int,
+	@Nome varchar(max),
+	@Descricao varchar(max),
+	@DataInicio varchar(max) = NULL,
+	@DataFim varchar(max) = NULL,
+	@Uf varchar(max) = NULL,
+	@Cidade varchar(max) = NULL,
+	@Endereco varchar(max) = NULL,
+	@QtdVagas int,
+	@EntidadeId int,
+	@CategoriaId int,
+	@ArquivoId int = NULL
+AS
+BEGIN
+	UPDATE [Projeto] SET [Nome] = @Nome, [Descricao] = @Descricao, [DataInicio] = @DataInicio, [DataFim] = @DataFim, 
+		[Uf] = @Uf, [Cidade] = @Cidade, [Endereco] = @Endereco, [QtdVagas] = @QtdVagas, [EntidadeId] = @EntidadeId, 
+		[CategoriaId] = @CategoriaId, [ArquivoId] = @ArquivoId WHERE [Id] = @Id
 END
 GO
 
@@ -173,5 +200,243 @@ CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_ENTIDADE]
 AS
 BEGIN
 	SELECT * FROM [Projeto] WHERE [EntidadeId] = @EntidadeId
+END
+GO
+
+--Selecionar Projeto por Id
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_PROJETO_ID]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_PROJETO_ID]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_PROJETO_ID]
+	@Id int
+AS
+BEGIN
+	SELECT * FROM [Projeto] WHERE [Id] = @Id
+END
+GO
+
+--Excluir Projeto por Id
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_EXCLUIR_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_EXCLUIR_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_EXCLUIR_PROJETO]
+	@Id int
+AS
+BEGIN
+	DELETE FROM [Projeto] WHERE [Id] = @Id
+END
+GO
+
+
+--====================================================== PROCEDURES TABELA CATEFORIA DE PROJETO =======================================================================
+
+--Listar Categorias
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_TODAS_CATEGORIAS_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_TODAS_CATEGORIAS_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_TODAS_CATEGORIAS_PROJETO]
+AS
+BEGIN
+	SELECT * FROM [CategoriaProjeto]
+END
+GO
+
+--Selecionar Categoria por Id
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_CATEGORIA_PROJETO_ID]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_CATEGORIA_PROJETO_ID]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_CATEGORIA_PROJETO_ID]
+	@Id int
+AS
+BEGIN
+	SELECT * FROM [CategoriaProjeto] WHERE [Id] = @Id
+END
+GO
+
+
+--====================================================== PROCEDURES TABELA ARQUIVO =======================================================================
+
+--SELECIONAR ARQUIVO POR ID
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_ARQUIVO_ID]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_ARQUIVO_ID]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_ARQUIVO_ID]
+	@Id int
+AS
+BEGIN
+	SELECT * FROM [Arquivo] WHERE Id = @Id
+END
+GO
+
+--LISTAR ARQUIVOS DE ENTIDADE
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_ARQUIVOS_ENTIDADE]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_ARQUIVOS_ENTIDADE]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_ARQUIVOS_ENTIDADE]
+	@EntidadeId int
+AS
+BEGIN
+	SELECT * FROM [Arquivo] a, [ArquivoEntidade] ae WHERE a.Id = ae.ArquivoId AND ae.EntidadeId = @EntidadeId
+END
+GO
+
+--LISTAR ARQUIVOS DE VOLUNTARIO
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_ARQUIVOS_VOLUNTARIO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_ARQUIVOS_VOLUNTARIO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_ARQUIVOS_VOLUNTARIO]
+	@VoluntarioId int
+AS
+BEGIN
+	SELECT * FROM [Arquivo] a, [ArquivoVoluntario] ae WHERE a.Id = ae.ArquivoId AND ae.VoluntarioId = @VoluntarioId
+END
+GO
+
+--Salvar Arquivos de Entidade
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_ARQUIVO_ENTIDADE]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_ENTIDADE]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_ENTIDADE]
+	@Titulo varchar(max),
+	@Descricao varchar(max) = NULL,
+	@Caminho varchar(max),
+	@EntidadeId int
+AS
+BEGIN
+	
+	BEGIN TRANSACTION
+
+		BEGIN TRY
+
+			INSERT INTO [Arquivo]([Titulo], [Descricao], [Caminho]) VALUES (@Titulo, @Descricao, @Caminho)
+
+			DECLARE @ULTIMO_ID INT 
+			SET @ULTIMO_ID = Scope_identity()
+
+			INSERT INTO [ArquivoEntidade]([EntidadeId], [ArquivoId]) VALUES (@EntidadeId, @ULTIMO_ID)
+
+		END TRY
+		BEGIN CATCH
+			ROLLBACK
+		END CATCH
+
+	COMMIT
+END
+GO
+
+--Salvar Arquivos de Voluntario
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_ARQUIVO_VOLUNTARIO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_VOLUNTARIO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_VOLUNTARIO]
+	@Titulo varchar(max),
+	@Descricao varchar(max) = NULL,
+	@Caminho varchar(max),
+	@VoluntarioId int
+AS
+BEGIN
+	
+	BEGIN TRANSACTION
+
+		BEGIN TRY
+
+			INSERT INTO [Arquivo]([Titulo], [Descricao], [Caminho]) VALUES (@Titulo, @Descricao, @Caminho)
+
+			DECLARE @ULTIMO_ID INT 
+			SET @ULTIMO_ID = Scope_identity()
+
+			INSERT INTO [ArquivoVoluntario]([VoluntarioId], [ArquivoId]) VALUES (@VoluntarioId, @ULTIMO_ID)
+
+		END TRY
+		BEGIN CATCH
+			ROLLBACK
+		END CATCH
+
+	COMMIT
+END
+GO
+
+--Excluir Arquivos de Entidade
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_EXCLUIR_ARQUIVO_ENTIDADE]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_EXCLUIR_ARQUIVO_ENTIDADE]
+GO
+
+CREATE PROCEDURE [DBO].[SP_EXCLUIR_ARQUIVO_ENTIDADE]
+	@Id int,
+	@EntidadeId int
+AS
+BEGIN
+	BEGIN TRANSACTION
+
+		BEGIN TRY
+
+			DELETE FROM [ArquivoEntidade] WHERE [EntidadeId] = @EntidadeId AND [ArquivoId] = @Id
+
+			DELETE FROM [Arquivo] WHERE [Id] = @Id
+
+		END TRY
+		BEGIN CATCH
+			ROLLBACK
+		END CATCH
+
+	COMMIT
+END
+GO
+
+--Excluir Arquivos de Voluntario
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_EXCLUIR_ARQUIVO_VOLUNTARIO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_EXCLUIR_ARQUIVO_VOLUNTARIO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_EXCLUIR_ARQUIVO_VOLUNTARIO]
+	@Id int,
+	@VoluntarioId int
+AS
+BEGIN
+	BEGIN TRANSACTION
+
+		BEGIN TRY
+
+			DELETE FROM [ArquivoVoluntario] WHERE [VoluntarioId] = @VoluntarioId AND [ArquivoId] = @Id
+
+			DELETE FROM [Arquivo] WHERE [Id] = @Id
+
+		END TRY
+		BEGIN CATCH
+			ROLLBACK
+		END CATCH
+
+	COMMIT
 END
 GO

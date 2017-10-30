@@ -9,6 +9,25 @@ namespace Maozinha.Business
     {
         private string _connectionString;
 
+        public ProjetoModel SelecionarProjetoPorId(int projetoId)
+        {
+            try
+            {
+                using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
+                {
+                    ProjetoModel entidade = new ProjetoModel();
+
+                    entidade.Id = projetoId;
+
+                    return unit.Projetos.SelecionarPorId(entidade);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<ProjetoModel> ListarPorEntidade(int entidadeId)
         {
             try
@@ -34,10 +53,40 @@ namespace Maozinha.Business
             {
                 using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
                 {
-                    var tipo = new TipoUsuarioModel();
-                    tipo.Descricao = TipoUsuarioModel.DescricaoEntidade;
-
                     unit.Projetos.Inserir(entidade);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AlterarProjeto(ProjetoModel entidade)
+        {
+            try
+            {
+                using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
+                {
+                    unit.Projetos.Alterar(entidade);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void ExcluirProjeto(int id)
+        {
+            try
+            {
+                using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
+                {
+                    var entidade = new ProjetoModel();
+                    entidade.Id = id;
+
+                    unit.Projetos.Excluir(entidade);
                 }
             }
             catch (Exception ex)

@@ -1,0 +1,72 @@
+﻿@model Maozinha.UI.Web.ViewModel.IndexFotosEntidadeViewModel
+
+@{
+    ViewBag.Title = "Fotos da Entidade";
+}
+
+<div class="col-md-12">
+    <h3 class="borda">Fotos da Entidade</h3>
+
+    <br>
+    @Html.ActionLink("Adicionar Foto", "Adicionar", "FotosEntidade", null, new { @class = "btn btn-primary" })
+    <br><br>
+
+    <div class="col-md-12 resultado">
+
+        <div class="box-body">
+            <br>
+            <table id="projetos" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Descricao</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaFotos)
+                    {
+                        <tr>
+                            <td><img src="@item.Caminho" /></td>
+                            <td>@item.Id</td>
+                            <td>@item.Titulo</td>
+                            <td>@item.Descricao</td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" href="@item.Caminho">Abrir</a>
+                                @Html.ActionLink("Download", "Download", "FotosEntidade", new { @id = item.Id }, new { @class = "btn btn-success btn-xs" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Descricao</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+
+@section scripts
+{
+    <link href="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#projetos').DataTable({
+                language: {
+                    "url": 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json'
+                }
+            });
+        });
+    </script>
+}

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArquivoRep.cs" />
+    <Compile Include="ArquivoEntidadeRep.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="CategoriaProjetoRep.cs" />
     <Compile Include="ProjetoRep.cs" />

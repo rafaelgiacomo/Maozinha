@@ -40,7 +40,7 @@ namespace Maozinha.UI.Web.ViewModel
         public string Endereco { get; set; }
 
         [Required]
-        [Display(Name = "Descreva mais sobre o projeto")]
+        [Display(Name = "Qtd de vagas para projeto.")]
         public int QtdVagas { get; set; }
 
         [Required]
@@ -64,6 +64,7 @@ namespace Maozinha.UI.Web.ViewModel
         {
             ProjetoModel ent = new ProjetoModel();
 
+            ent.Id = Id;
             ent.Nome = Nome;
             ent.Uf = Uf;
             ent.Cidade = Cidade;
@@ -73,6 +74,9 @@ namespace Maozinha.UI.Web.ViewModel
             ent.QtdVagas = QtdVagas;
             ent.DataInicio = DataInicio;
             ent.DataFim = DataFim;
+            ent.CategoriaId = CategoriaId;
+            ent.EntidadeId = EntidadeId;
+            ent.ArquivoId = ArquivoId;
 
             return ent;
         }
@@ -88,14 +92,17 @@ namespace Maozinha.UI.Web.ViewModel
             Descricao = ent.Descricao;
             QtdVagas = ent.QtdVagas;
             DataInicio = ent.DataInicio;
-            DataFim = DataFim;
+            DataFim = ent.DataFim;
+            CategoriaId = ent.CategoriaId;
+            EntidadeId = ent.EntidadeId;
+            ArquivoId = ent.ArquivoId;
         }
 
         #endregion
 
-        public ProjetoViewModel(List<ProjetoModel> listaProjetos)
+        public ProjetoViewModel(List<CategoriaProjetoModel> listaCategorias)
         {
-            CategoriaLista = new SelectList(listaProjetos, "Id", "Descricao");
+            CategoriaLista = new SelectList(listaCategorias, "Id", "Descricao");
         }
 
         public ProjetoViewModel()
