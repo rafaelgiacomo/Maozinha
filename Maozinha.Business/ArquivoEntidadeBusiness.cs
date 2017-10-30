@@ -7,7 +7,14 @@ namespace Maozinha.Business
 {
     public class ArquivoEntidadeBusiness
     {
+
+        #region Constantes
+
         private string _connectionString;
+
+        #endregion
+
+        #region Métodos Públicos
 
         public ArquivoModel SelecionarArquivoPorId(int projetoId)
         {
@@ -75,6 +82,23 @@ namespace Maozinha.Business
                 throw ex;
             }
         }
+
+        public int DefinirProximoId()
+        {
+            try
+            {
+                using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
+                {
+                    return unit.ArquivosEntidades.DefinirProximoId();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
 
         public ArquivoEntidadeBusiness(string connectionString)
         {

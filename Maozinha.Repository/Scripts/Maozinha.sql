@@ -8,10 +8,11 @@ USE [Maozinha]
 GO
 
 create table Arquivo(
-	[Id] [int] identity(1,1),
+	[Id] [int],
 	[Titulo] [varchar](max) NOT NULL,
-	[Descricao] [varchar](max) NOT NULL,
+	[Descricao] [varchar](max),
 	[Caminho] [varchar](max) NOT NULL,
+	[Tipo] [varchar](10) NOT NULL,
 	CONSTRAINT [PK_dbo.Arquivo] PRIMARY KEY CLUSTERED
 	(
 		[Id] ASC

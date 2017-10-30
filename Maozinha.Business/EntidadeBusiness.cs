@@ -49,6 +49,28 @@ namespace Maozinha.Business
             }
         }
 
+        public void AlterarEntidade(EntidadeModel entidade)
+        {
+            try
+            {
+                using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
+                {
+                    var tipo = new TipoUsuarioModel();
+                    tipo.Descricao = TipoUsuarioModel.DescricaoEntidade;
+
+                    entidade.TipoUsuario = unit.TiposUsuario.SelecionarPorDescricao(tipo);
+                    entidade.RoleId = entidade.TipoUsuario.Id;
+                    entidade.Descriminador = UsuarioModel.DescriminadorEntidade;
+
+                    unit.Entidades.Alterar(entidade);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public EntidadeBusiness(string connectionString)
         {
             _connectionString = connectionString;

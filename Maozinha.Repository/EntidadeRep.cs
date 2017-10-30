@@ -16,6 +16,7 @@ namespace Maozinha.Repository
         private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_ENTIDADE_ID";
         private const string PROCEDURE_SELECIONAR_LOGIN = "SP_SELECIONAR_ENTIDADE_LOGIN";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_ENTIDADE";
+        private const string PROCEDURE_ALTERAR = "SP_ALTERAR_ENTIDADE";
 
         private const string COLUNA_USUARIO_ID = "UsuarioId";
         private const string COLUNA_CNPJ = "Cnpj";
@@ -26,7 +27,29 @@ namespace Maozinha.Repository
 
         public void Alterar(EntidadeModel entidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string[] parameters =
+                {
+                    UsuarioRep.COLUNA_NOME, UsuarioRep.COLUNA_UF, UsuarioRep.COLUNA_CIDADE, UsuarioRep.COLUNA_ENDERECO,
+                    UsuarioRep.COLUNA_EMAIL, UsuarioRep.COLUNA_TELEFONE, UsuarioRep.COLUNA_LOGIN, UsuarioRep.COLUNA_SENHA,
+                    UsuarioRep.COLUNA_ROLE_ID, UsuarioRep.COLUNA_DESCRIMINADOR, COLUNA_CNPJ, UsuarioRep.COLUNA_DESCRICAO,
+                    UsuarioRep.COLUNA_ID
+                };
+
+                object[] values =
+                {
+                    entidade.Nome, entidade.Uf, entidade.Cidade, entidade.Endereco, entidade.Email, entidade.Telefone,
+                    entidade.Login, entidade.Senha, entidade.RoleId, entidade.Descriminador,
+                    entidade.Cnpj, entidade.Descricao, entidade.Id
+                };
+
+                _context.ExecuteProcedureNoReturn(PROCEDURE_ALTERAR, parameters, values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Excluir(EntidadeModel entidade)

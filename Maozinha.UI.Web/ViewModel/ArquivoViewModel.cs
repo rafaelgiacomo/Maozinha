@@ -16,11 +16,7 @@ namespace Maozinha.UI.Web.ViewModel
         #endregion
 
         #region Propriedades
-
-        [Required]
-        [Display(Name = "Título")]
-        public string Titulo { get; set; }
-
+        
         [Display(Name = "Descreva mais sobre as fotos que esta subindo.")]
         [DataType(DataType.MultilineText)]
         public string Descricao { get; set; }

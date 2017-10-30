@@ -19,11 +19,13 @@ namespace Maozinha.Repository
         private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_ARQUIVO_ID";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_ARQUIVO_ENTIDADE";
         private const string PROCEDURE_EXCLUIR = "SP_EXCLUIR_ARQUIVO_ENTIDADE";
+        private const string PROCEDURE_DEFINIR_ID = "SP_DEFINIR_ID_ARQUIVO";
 
         public const string COLUNA_ID = "Id";
         public const string COLUNA_TITULO = "Titulo";
         public const string COLUNA_DESCRICAO = "Descricao";
         public const string COLUNA_CAMINHO = "Caminho";
+        public const string COLUNA_TIPO = "Tipo";
         public const string COLUNA_ENTIDADE_ID = "EntidadeId";
 
         #endregion
@@ -36,12 +38,12 @@ namespace Maozinha.Repository
             {
                 string[] parameters =
                 {
-                    COLUNA_TITULO, COLUNA_DESCRICAO, COLUNA_CAMINHO, COLUNA_ENTIDADE_ID
+                    COLUNA_TITULO, COLUNA_DESCRICAO, COLUNA_CAMINHO, COLUNA_ENTIDADE_ID, COLUNA_TIPO, COLUNA_ID
                 };
 
                 object[] values =
                 {
-                    entidade.Titulo, entidade.Descricao, entidade.Caminho, entidadeId
+                    entidade.Titulo, entidade.Descricao, entidade.Caminho, entidadeId, entidade.Tipo, entidade.Id
                 };
 
                 _context.ExecuteProcedureNoReturn(PROCEDURE_SALVAR, parameters, values);
@@ -130,6 +132,42 @@ namespace Maozinha.Repository
             }
         }
 
+        public int DefinirProximoId()
+        {
+            try
+            {
+                int retorno = 0;
+                SqlDataReader reader = null;
+
+                string[] parameters = { };
+                object[] values = { };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_DEFINIR_ID, parameters, values);
+
+                if (reader.Read())
+                {
+                    var ret = reader[0].ToString();
+
+                    if (!"".Equals(ret))
+                    {
+                        retorno = int.Parse(ret);
+                    }
+                    else
+                    {
+                        retorno = 1;
+                    }
+                }
+
+                reader.Close();
+
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: ArquivoEntidadeRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
         #endregion
 
         #region Metodos Privados
@@ -142,6 +180,7 @@ namespace Maozinha.Repository
             entidade.Titulo = reader[COLUNA_TITULO].ToString();
             entidade.Descricao = reader[COLUNA_DESCRICAO].ToString();
             entidade.Caminho = reader[COLUNA_CAMINHO].ToString();
+            entidade.Tipo = reader[COLUNA_TIPO].ToString();
 
             return entidade;
         }

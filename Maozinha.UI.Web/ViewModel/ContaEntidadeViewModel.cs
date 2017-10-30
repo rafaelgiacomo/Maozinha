@@ -24,6 +24,7 @@ namespace Maozinha.UI.Web.ViewModel
         {
             EntidadeModel ent = new EntidadeModel();
 
+            ent.Id = Id;
             ent.Nome = Nome;
             ent.Uf = Uf;
             ent.Cidade = Cidade;

@@ -151,6 +151,31 @@ namespace Maozinha.UI.Web.Controllers
             }
         }
 
+        public ActionResult EditarInfo()
+        {
+            var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
+            ContaEntidadeViewModel viewModel = new ContaEntidadeViewModel();
+
+            viewModel.ParaViewModel(entidade);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditarInfo(ContaEntidadeViewModel viewModel)
+        {
+            var entidade = viewModel.ParaModel();
+
+            if (ModelState.IsValid)
+            {
+                _entidadeBusiness.AlterarEntidade(entidade);
+
+                return RedirectToAction("IndexEntidade");
+            }           
+
+            return View(viewModel);
+        }
+
         public ActionResult VerVoluntarios(int id)
         {
 

@@ -94,6 +94,48 @@ BEGIN
 END
 GO
 
+--Alterar Entidade
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_ALTERAR_ENTIDADE]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_ALTERAR_ENTIDADE]
+GO
+
+CREATE PROCEDURE [DBO].[SP_ALTERAR_ENTIDADE]
+	@Id int,
+	@Nome varchar(max),
+	@Uf varchar(max) = NULL,
+	@Cidade varchar(max) = NULL,
+	@Endereco varchar(max) = NULL,
+	@Email varchar(max),
+	@Telefone varchar(max) = NULL,
+	@Login varchar(max),
+	@Senha varchar(max),
+	@RoleId int,
+	@ArquivoId int = NULL,
+	@Descriminador int,
+	@Descricao varchar(max) = NULL,
+	@Cnpj varchar(max)
+AS
+BEGIN
+BEGIN TRANSACTION
+
+	BEGIN TRY
+		UPDATE [Usuario] SET [Nome] = @Nome, [Uf] = @Uf, [Cidade] = @Cidade, [Endereco] = @Endereco, [Email] = @Email, [Telefone] = @Telefone, [Login] = @Login, 
+		[Senha] = @Senha, [RoleId] = @RoleId, [Descriminador] = @Descriminador, [Descricao]	= @Descricao WHERE [Id] = @Id
+
+		UPDATE [Entidade] SET [Cnpj] = @Cnpj WHERE [UsuarioId] = @Id
+
+		COMMIT
+
+	END TRY
+	BEGIN CATCH
+		ROLLBACK
+	END CATCH	
+	
+END
+GO
+
 --====================================================== PROCEDURES TABELA VOLUNTARIO =======================================================================
 
 --Salvar Voluntario
@@ -321,30 +363,28 @@ IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_
 GO
 
 CREATE PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_ENTIDADE]
+	@Id int,
 	@Titulo varchar(max),
 	@Descricao varchar(max) = NULL,
 	@Caminho varchar(max),
-	@EntidadeId int
+	@EntidadeId int,
+	@Tipo nvarchar(10)
 AS
 BEGIN
-	
 	BEGIN TRANSACTION
 
 		BEGIN TRY
 
-			INSERT INTO [Arquivo]([Titulo], [Descricao], [Caminho]) VALUES (@Titulo, @Descricao, @Caminho)
+			INSERT INTO [Arquivo]([Id], [Titulo], [Descricao], [Caminho], [Tipo]) VALUES (@Id, @Titulo, @Descricao, @Caminho, @Tipo)
 
-			DECLARE @ULTIMO_ID INT 
-			SET @ULTIMO_ID = Scope_identity()
+			INSERT INTO [ArquivoEntidade]([EntidadeId], [ArquivoId]) VALUES (@EntidadeId, @Id)
 
-			INSERT INTO [ArquivoEntidade]([EntidadeId], [ArquivoId]) VALUES (@EntidadeId, @ULTIMO_ID)
+			COMMIT
 
 		END TRY
 		BEGIN CATCH
 			ROLLBACK
 		END CATCH
-
-	COMMIT
 END
 GO
 
@@ -356,30 +396,28 @@ IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_
 GO
 
 CREATE PROCEDURE [DBO].[SP_SALVAR_ARQUIVO_VOLUNTARIO]
+	@Id int,
 	@Titulo varchar(max),
 	@Descricao varchar(max) = NULL,
 	@Caminho varchar(max),
+	@Tipo nvarchar(10),
 	@VoluntarioId int
 AS
 BEGIN
-	
 	BEGIN TRANSACTION
 
 		BEGIN TRY
 
-			INSERT INTO [Arquivo]([Titulo], [Descricao], [Caminho]) VALUES (@Titulo, @Descricao, @Caminho)
+			INSERT INTO [Arquivo]([Id], [Titulo], [Descricao], [Caminho], [Tipo]) VALUES (@Id, @Titulo, @Descricao, @Caminho, @Tipo)
 
-			DECLARE @ULTIMO_ID INT 
-			SET @ULTIMO_ID = Scope_identity()
+			INSERT INTO [ArquivoVoluntario]([VoluntarioId], [ArquivoId]) VALUES (@VoluntarioId, @Id)
 
-			INSERT INTO [ArquivoVoluntario]([VoluntarioId], [ArquivoId]) VALUES (@VoluntarioId, @ULTIMO_ID)
+			COMMIT
 
 		END TRY
 		BEGIN CATCH
 			ROLLBACK
-		END CATCH
-
-	COMMIT
+		END CATCH	
 END
 GO
 
@@ -403,12 +441,12 @@ BEGIN
 
 			DELETE FROM [Arquivo] WHERE [Id] = @Id
 
+			COMMIT
+
 		END TRY
 		BEGIN CATCH
 			ROLLBACK
 		END CATCH
-
-	COMMIT
 END
 GO
 
@@ -432,11 +470,25 @@ BEGIN
 
 			DELETE FROM [Arquivo] WHERE [Id] = @Id
 
+			COMMIT
+
 		END TRY
 		BEGIN CATCH
 			ROLLBACK
 		END CATCH
+END
+GO
 
-	COMMIT
+--DEFINIR PROXIMO ID
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_DEFINIR_ID_ARQUIVO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_DEFINIR_ID_ARQUIVO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_DEFINIR_ID_ARQUIVO]
+AS
+BEGIN
+	SELECT (MAX(Id) + 1) FROM [Arquivo]
 END
 GO

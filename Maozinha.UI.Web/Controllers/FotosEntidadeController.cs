@@ -16,6 +16,7 @@ namespace Maozinha.UI.Web.Controllers
     {
         #region Propriedades
 
+        private readonly EntidadeBusiness _entidadeBusiness;
         private readonly ArquivoEntidadeBusiness _arqEntBusiness;
 
         #endregion
@@ -24,7 +25,10 @@ namespace Maozinha.UI.Web.Controllers
 
         public ActionResult Index()
         {
+            var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
             IndexFotosEntidadeViewModel viewModel = new IndexFotosEntidadeViewModel();
+
+            viewModel.ListaFotos = _arqEntBusiness.ListarPorEntidade(entidade.Id);
 
             return View(viewModel);
         }
@@ -41,17 +45,21 @@ namespace Maozinha.UI.Web.Controllers
         {
             try
             {
+                var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
+
                 foreach (var file in viewModel.Files)
                 {
                     if (file.ContentLength > 0)
                     {
-                        ArquivoModel arq = new ArquivoModel
-                        {
-                            Titulo = Path.GetFileNameWithoutExtension(file.FileName),
-                            Tipo = Path.GetExtension(file.FileName),
-                        };
+                        ArquivoModel arq = new ArquivoModel();
 
-                        arq.Caminho = Path.Combine(Server.MapPath(ArquivoViewModel.CaminhoUpload), arq.Titulo + arq.Tipo);
+                        arq.Titulo = Path.GetFileNameWithoutExtension(file.FileName);
+                        arq.Tipo = Path.GetExtension(file.FileName);
+                        arq.Id = _arqEntBusiness.DefinirProximoId();
+                        arq.Caminho = Path.Combine(Server.MapPath(ArquivoViewModel.CaminhoUpload), arq.Id + arq.Tipo);
+                        arq.Descricao = viewModel.Descricao;
+
+                        _arqEntBusiness.InserirArquivo(arq, entidade.Id);
 
                         file.SaveAs(arq.Caminho);
                     }
@@ -59,16 +67,23 @@ namespace Maozinha.UI.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ViewBag.Mensagem = "Erro ao subir imagens";
                 return View(viewModel);
             }
         }
 
-        public FotosEntidadeController()
+        public ActionResult Excluir(int id)
         {
-            _arqEntBusiness = new ArquivoEntidadeBusiness(_connectionString);
+            var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
+            var arq = _arqEntBusiness.SelecionarArquivoPorId(id);
+
+            _arqEntBusiness.ExcluirArquivo(id, entidade.Id);
+
+            System.IO.File.Delete(arq.Caminho);
+
+            return RedirectToAction("Index");
         }
 
         public FileResult Download(int id)
@@ -76,21 +91,26 @@ namespace Maozinha.UI.Web.Controllers
             try
             {
                 string contentType = "";
-                //var arquivo = _unitOfWork.Arquivos.Encontrar(id);
-                ArquivoModel arquivo = new ArquivoModel();
+                ArquivoModel arquivo = _arqEntBusiness.SelecionarArquivoPorId(id);
 
                 if (".pdf".Equals(arquivo.Tipo))
                     contentType = "application/pdf";
                 if (".jpg".Equals(arquivo.Tipo) || ".gif".Equals(arquivo.Tipo) || ".png".Equals(arquivo.Tipo))
                     contentType = "application/image";
 
-                return File(Path.Combine(Server.MapPath(ArquivoViewModel.CaminhoUpload), arquivo.Titulo + arquivo.Tipo), contentType,
+                return File(Path.Combine(Server.MapPath(ArquivoViewModel.CaminhoUpload), arquivo.Id + arquivo.Tipo), contentType,
                     arquivo.Titulo + arquivo.Tipo);
             }
             catch (Exception)
             {
                 return null;
             }
+        }
+
+        public FotosEntidadeController()
+        {
+            _arqEntBusiness = new ArquivoEntidadeBusiness(_connectionString);
+            _entidadeBusiness = new EntidadeBusiness(_connectionString);
         }
 
         #endregion

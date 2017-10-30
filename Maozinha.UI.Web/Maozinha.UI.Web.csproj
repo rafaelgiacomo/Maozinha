@@ -285,9 +285,11 @@
     <Content Include="Views\PerfilEntidade\ExcluirProjeto.cshtml" />
     <Content Include="Views\FotosEntidade\Index.cshtml" />
     <Content Include="Views\FotosEntidade\Adicionar.cshtml" />
+    <Content Include="Views\PerfilEntidade\EditarInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Uploads\" />
     <Folder Include="Scripts\AdminLTE\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

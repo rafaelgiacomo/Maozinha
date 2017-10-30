@@ -21,9 +21,14 @@
             <br>
             <br>
         </div>
-        <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
-            <input type="submit" name="login" value="Editar informações de perfil" id="login" class="btn btn-primary">
-        </label>
+
         <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            @Html.ActionLink("Editar informações de perfil", "EditarInfo", "PerfilEntidade", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="clearfix"></div>
+
+        <br>
     </div>
 </div>
