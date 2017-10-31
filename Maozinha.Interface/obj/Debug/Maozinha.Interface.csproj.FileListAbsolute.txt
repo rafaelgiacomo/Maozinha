@@ -8,3 +8,8 @@ C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Interface\bin
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.csprojResolveAssemblyReference.cache
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.dll
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Interface\obj\Debug\Maozinha.Interface.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Interface\bin\Debug\Maozinha.Interface.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Interface\bin\Debug\Maozinha.Interface.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Interface\obj\Debug\Maozinha.Interface.csprojResolveAssemblyReference.cache
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Interface\obj\Debug\Maozinha.Interface.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Interface\obj\Debug\Maozinha.Interface.pdb

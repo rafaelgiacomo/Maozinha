@@ -16,3 +16,12 @@ C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Repository\bi
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.csprojResolveAssemblyReference.cache
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.dll
 C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.Repository\obj\Debug\Maozinha.Repository.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Repository.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Repository.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Interface.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Model.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Interface.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\bin\Debug\Maozinha.Model.pdb
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\obj\Debug\Maozinha.Repository.csprojResolveAssemblyReference.cache
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\obj\Debug\Maozinha.Repository.dll
+C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.Repository\obj\Debug\Maozinha.Repository.pdb
