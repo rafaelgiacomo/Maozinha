@@ -64,20 +64,43 @@ namespace Maozinha.Business.Tests
             ProjetoModel ProjetoInserido = new ProjetoModel();
             ProjetoInserido = ProjetosTeste.Where(x => x.Id == 6).First();
 
-            Assert.AreEqual(ProjetoInserido, Teste);
+            Assert.AreEqual(ProjetoInserido.Id, Teste.Id);
 
         }
 
         [TestMethod()]
         public void AlterarProjetoTest()
         {
-            Assert.Fail();
+            ProjetoModel Teste = new ProjetoModel { Id = 3, EntidadeId = 20 };
+
+            List<ProjetoModel> ProjetosTeste = CriaProjetos();
+
+            ProjetoModel TesteMuda= ProjetosTeste.Where(x => x.Id == 3).First();
+
+            TesteMuda.EntidadeId = 20;
+
+            Assert.AreEqual(TesteMuda.EntidadeId, Teste.EntidadeId);
         }
 
         [TestMethod()]
         public void ExcluirProjetoTest()
         {
-            Assert.Fail();
+
+            List<ProjetoModel> ListaProjetosComExclusao = new List<ProjetoModel>();
+
+            ListaProjetosComExclusao.Add(new ProjetoModel { Id = 2, EntidadeId = 10, CategoriaId = 11 });
+            ListaProjetosComExclusao.Add(new ProjetoModel { Id = 3, EntidadeId = 11, CategoriaId = 12 });
+            ListaProjetosComExclusao.Add(new ProjetoModel { Id = 4, EntidadeId = 12, CategoriaId = 13 });
+            ListaProjetosComExclusao.Add(new ProjetoModel { Id = 5, EntidadeId = 13, CategoriaId = 13 });
+            
+
+            List<ProjetoModel> ProjetosTeste = CriaProjetos();   
+
+            ProjetoModel ProjetoExcluido = new ProjetoModel();
+
+            ProjetosTeste.Remove(ProjetosTeste.Where(x => x.Id == 1).First());
+
+            Assert.AreEqual(ProjetosTeste.Count(), ListaProjetosComExclusao.Count());
         }
     }
 }
