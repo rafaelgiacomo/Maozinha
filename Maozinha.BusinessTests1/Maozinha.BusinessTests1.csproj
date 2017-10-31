@@ -62,6 +62,10 @@
       <Project>{BEDCA1FE-B806-4101-8271-ED1D37B281EB}</Project>
       <Name>Maozinha.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Maozinha.Model\Maozinha.Model.csproj">
+      <Project>{d2717a30-1b53-4c7d-bc2c-dc886432b0bd}</Project>
+      <Name>Maozinha.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
