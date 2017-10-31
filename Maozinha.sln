@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.UI.Web", "Maozinha.UI.Web\Maozinha.UI.Web.csproj", "{FFA73A32-CB21-4ADC-8EC6-897DB194592D}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.Interface", "Maozinha.Interface\Maozinha.Interface.csproj", "{A48126CD-3858-41BD-8754-90564D52B226}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.Business", "Maozinha.Business\Maozinha.Business.csproj", "{BEDCA1FE-B806-4101-8271-ED1D37B281EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.ModelTests", "Maozinha.ModelTests\Maozinha.ModelTests.csproj", "{AE3478F0-2B86-4386-8B5B-829DD5E502EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.BusinessTests1", "Maozinha.BusinessTests1\Maozinha.BusinessTests1.csproj", "{EACB9BEB-7E02-4F46-AE2B-E26E7FC1AA5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maozinha.RepositoryTests1", "Maozinha.RepositoryTests1\Maozinha.RepositoryTests1.csproj", "{357E2076-0978-464C-8065-3C4B2AB4ED6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{BEDCA1FE-B806-4101-8271-ED1D37B281EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEDCA1FE-B806-4101-8271-ED1D37B281EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEDCA1FE-B806-4101-8271-ED1D37B281EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3478F0-2B86-4386-8B5B-829DD5E502EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3478F0-2B86-4386-8B5B-829DD5E502EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3478F0-2B86-4386-8B5B-829DD5E502EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3478F0-2B86-4386-8B5B-829DD5E502EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACB9BEB-7E02-4F46-AE2B-E26E7FC1AA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACB9BEB-7E02-4F46-AE2B-E26E7FC1AA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACB9BEB-7E02-4F46-AE2B-E26E7FC1AA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACB9BEB-7E02-4F46-AE2B-E26E7FC1AA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357E2076-0978-464C-8065-3C4B2AB4ED6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357E2076-0978-464C-8065-3C4B2AB4ED6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357E2076-0978-464C-8065-3C4B2AB4ED6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357E2076-0978-464C-8065-3C4B2AB4ED6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
