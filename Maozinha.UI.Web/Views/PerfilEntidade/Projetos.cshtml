@@ -1,5 +1,7 @@
 ﻿@model Maozinha.UI.Web.ViewModel.IndexProjetosEntidadeViewModel
 
+@using Maozinha.UI.Web.ViewModel;
+
 @{
     ViewBag.Title = "Projetos de Entidade";
 }
@@ -13,53 +15,67 @@
 
     <div class="col-md-12 resultado">
 
-            <div class="box-body">
-                <br>
-                <table id="projetos" class="table table-bordered table-striped">
-                    <thead>
+        <div class="box-body">
+            <br>
+            <table id="projetos" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Qtd Vagas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaProjetos)
+                    {
                         <tr>
-                            <th></th>
-                            <th>Código</th>
-                            <th>Nome</th>
-                            <th>Data Início</th>
-                            <th>Data Fim</th>
-                            <th>Qtd Vagas</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.ListaProjetos)
-                        {
-                            <tr>
-                                <td><img style="width: 100px; height: 100px;" src="" /></td>
-                                <td>@item.Id</td>
-                                <td>@item.Nome</td>
-                                <td>@item.DataInicio</td>
-                                <td>@item.DataFim</td>
-                                <td>@item.QtdVagas</td>
-                                <td>
+                            <td>
+                                @if (item.Arquivo != null)
+                                {
+                                    <img style="width: 100px; height: 100px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Arquivo.Id.ToString()@item.Arquivo.Tipo" />
+                                }
+                                else
+                                {
+                                    <img style="width: 100px; height: 100px;" src="" />
+                                }
+                            </td>
+
+                            <td>@item.Id</td>
+                            <td>@item.Nome</td>
+                            <td>@item.DataInicio</td>
+                            <td>@item.DataFim</td>
+                            <td>@item.QtdVagas</td>
+                            <td>
+                                @if (!item.Encerrado)
+                                {
                                     @Html.ActionLink("Ver Voluntários", "VerVoluntarios", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-primary btn-xs" })
                                     @Html.ActionLink("Editar", "EditarProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-success btn-xs" })
+                                    @Html.ActionLink("Imagem", "ImagemProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-default btn-xs" })
                                     @Html.ActionLink("Excluir", "ExcluirProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-danger btn-xs" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Código</th>
-                            <th>Nome</th>
-                            <th>CNPJ</th>
-                            <th>N° Leitos</th>
-                            <th>Nome do diretor</th>
-                            <th></th>
+                                }
+                            </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
-    </div>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Qtd Vagas</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
 
 </div>
 

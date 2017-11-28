@@ -127,6 +127,8 @@ GO
 create table VoluntarioProjeto(
 	[VoluntarioId] [int],
 	[ProjetoId] [int],
+	[Selecionado] [bit],
+	[Aprovado] [bit],
 	CONSTRAINT [PK_dbo.VoluntarioProjeto] PRIMARY KEY CLUSTERED
 	(
 		[VoluntarioId] ASC,

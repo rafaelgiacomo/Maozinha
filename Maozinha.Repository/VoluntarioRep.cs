@@ -12,12 +12,16 @@ namespace Maozinha.Repository
 
         #region Constantes
 
-        private const string PROCEDURE_LISTAR_TODOS = "LISTAR_TODOS_VOLUNTARIOS";
-        private const string PROCEDURE_SELECIONAR_ID = "SELECIONAR_VOLUNTARIO_ID";
+        private const string PROCEDURE_LISTAR_TODOS = "SP_LISTAR_TODOS_VOLUNTARIOS";
+        private const string PROCEDURE_LISTAR_CANDIDATOS_PROJETO = "SP_LISTAR_VOLUNTARIOS_PROJETO";
+        private const string PROCEDURE_LISTAR_SELECIONADOS_PROJETO = "SP_LISTAR_VOLUNTARIOS_SELECIONADOS_PROJETO";
+        private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_VOLUNTARIO_ID";
+        private const string PROCEDURE_SELECIONAR_LOGIN = "SP_SELECIONAR_VOLUNTARIO_LOGIN";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_VOLUNTARIO";
 
         private const string COLUNA_USUARIO_ID = "UsuarioId";
         private const string COLUNA_CPF = "Cpf";
+        public const string COLUNA_DATA_NASCIMENTO = "DataNascimento";
 
         #endregion
 
@@ -41,14 +45,15 @@ namespace Maozinha.Repository
                 {
                     UsuarioRep.COLUNA_NOME, UsuarioRep.COLUNA_UF, UsuarioRep.COLUNA_CIDADE, UsuarioRep.COLUNA_ENDERECO,
                     UsuarioRep.COLUNA_EMAIL, UsuarioRep.COLUNA_TELEFONE, UsuarioRep.COLUNA_LOGIN, UsuarioRep.COLUNA_SENHA,
-                    UsuarioRep.COLUNA_ROLE_ID, UsuarioRep.COLUNA_DESCRIMINADOR, COLUNA_CPF, UsuarioRep.COLUNA_DESCRICAO
+                    UsuarioRep.COLUNA_ROLE_ID, UsuarioRep.COLUNA_DESCRIMINADOR, COLUNA_CPF, UsuarioRep.COLUNA_DESCRICAO,
+                    COLUNA_DATA_NASCIMENTO
                 };
 
                 object[] values = 
                 {
                     entidade.Nome, entidade.Uf, entidade.Cidade, entidade.Endereco, entidade.Email, entidade.Telefone,
                     entidade.Login, entidade.Senha, entidade.RoleId, entidade.Descriminador,
-                    entidade.Cpf, entidade.Descricao
+                    entidade.Cpf, entidade.Descricao, entidade.DataNascimento
                 };
 
                 _context.ExecuteProcedureNoReturn(PROCEDURE_SALVAR, parameters, values);
@@ -96,7 +101,7 @@ namespace Maozinha.Repository
                 string[] parameters = { UsuarioRep.COLUNA_LOGIN };
                 object[] values = { entidade.Login };
 
-                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_SELECIONAR_ID, parameters, values);
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_SELECIONAR_LOGIN, parameters, values);
 
                 if (reader.Read())
                 {
@@ -142,6 +147,64 @@ namespace Maozinha.Repository
             }
         }
 
+        public List<VoluntarioModel> ListarCandidatosProjeto(int projetoId)
+        {
+            try
+            {
+                List<VoluntarioModel> lista = new List<VoluntarioModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_PROJETO_ID };
+                object[] values = { projetoId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_CANDIDATOS_PROJETO, parameters, values);
+
+                while (reader.Read())
+                {
+                    var entidade = ReaderEmObjeto(reader);
+
+                    lista.Add(entidade);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: VoluntarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
+        public List<VoluntarioModel> ListarSelecionadosProjeto(int projetoId)
+        {
+            try
+            {
+                List<VoluntarioModel> lista = new List<VoluntarioModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_PROJETO_ID };
+                object[] values = { projetoId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_SELECIONADOS_PROJETO, parameters, values);
+
+                while (reader.Read())
+                {
+                    var entidade = ReaderEmObjeto(reader);
+
+                    lista.Add(entidade);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: VoluntarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
         #endregion
 
         #region Metodos Privados
@@ -161,9 +224,10 @@ namespace Maozinha.Repository
             entidade.Senha = reader[UsuarioRep.COLUNA_SENHA].ToString();
             entidade.Cpf = reader[COLUNA_CPF].ToString();
             entidade.Descricao = reader[UsuarioRep.COLUNA_DESCRICAO].ToString();
+            entidade.DataNascimento = reader[COLUNA_DATA_NASCIMENTO].ToString();
 
-            var roleId = reader[UsuarioRep.COLUNA_NOME].ToString();
-            var arquivoId = reader[UsuarioRep.COLUNA_NOME].ToString();
+            var roleId = reader[UsuarioRep.COLUNA_ROLE_ID].ToString();
+            var arquivoId = reader[UsuarioRep.COLUNA_ARQUIVO_ID].ToString();
             var descriminador = reader[UsuarioRep.COLUNA_DESCRIMINADOR].ToString();
 
             if (!"".Equals(roleId))

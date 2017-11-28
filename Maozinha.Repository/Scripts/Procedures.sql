@@ -24,7 +24,7 @@ BEGIN
 END
 GO
 
---Selecionar Usuario por login
+--Selecionar Entidade por login
 --===============================================================================================================
 IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_ENTIDADE_LOGIN]')
 	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
@@ -36,6 +36,21 @@ CREATE PROCEDURE [DBO].[SP_SELECIONAR_ENTIDADE_LOGIN]
 AS
 BEGIN
 	SELECT * FROM [Usuario] u, [Entidade] e WHERE u.Id = e.UsuarioId AND [Login] = @Login
+END
+GO
+
+--Selecionar Voluntario por login
+--===============================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_VOLUNTARIO_LOGIN]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_LOGIN]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_LOGIN]
+	@Login varchar(max)
+AS
+BEGIN
+	SELECT * FROM [Usuario] u, [Voluntario] e WHERE u.Id = e.UsuarioId AND [Login] = @Login
 END
 GO
 
@@ -158,6 +173,7 @@ CREATE PROCEDURE [DBO].[SP_SALVAR_VOLUNTARIO]
 	@ArquivoId int = NULL,
 	@Descriminador int,
 	@Descricao varchar(max) = NULL,
+	@DataNascimento varchar(max),
 	@Cpf varchar(max)
 AS
 BEGIN
@@ -168,7 +184,52 @@ BEGIN
 	 
 	SET @ULTIMO_ID = Scope_identity()
 
-	INSERT INTO [Voluntario]([UsuarioId], [Cpf]) VALUES (@ULTIMO_ID, @Cpf)
+	INSERT INTO [Voluntario]([UsuarioId], [Cpf], [DataNascimento]) VALUES (@ULTIMO_ID, @Cpf, @DataNascimento)
+END
+GO
+
+--Selecionar Voluntario por Id
+--===============================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_VOLUNTARIO_ID]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_ID]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_ID]
+	@UsuarioId varchar(max)
+AS
+BEGIN
+	SELECT * FROM [Usuario] u, [Voluntario] e WHERE u.Id = e.UsuarioId AND e.[UsuarioId] = @UsuarioId
+END
+GO
+
+--Listar Voluntario por Projeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_VOLUNTARIOS_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_VOLUNTARIOS_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_VOLUNTARIOS_PROJETO]
+	@ProjetoId int
+AS
+BEGIN
+	SELECT * FROM [Usuario] u, [Voluntario] v, [VoluntarioProjeto] vp WHERE u.Id = v.UsuarioId AND v.UsuarioId = vp.VoluntarioId AND vp.ProjetoId = @ProjetoId AND vp.Selecionado = 0
+END
+GO
+
+--Listar Voluntarios Selecionados por Projeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_VOLUNTARIOS_SELECIONADOS_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_VOLUNTARIOS_SELECIONADOS_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_VOLUNTARIOS_SELECIONADOS_PROJETO]
+	@ProjetoId int
+AS
+BEGIN
+	SELECT * FROM [Usuario] u, [Voluntario] v, [VoluntarioProjeto] vp WHERE u.Id = v.UsuarioId AND v.UsuarioId = vp.VoluntarioId AND vp.ProjetoId = @ProjetoId AND vp.Selecionado = 1
 END
 GO
 
@@ -230,7 +291,23 @@ BEGIN
 END
 GO
 
---Listar Projetos Cliente
+--Alterar Imagem do Projeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_ALTERAR_IMAGEM_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_ALTERAR_IMAGEM_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_ALTERAR_IMAGEM_PROJETO]
+	@Id int,
+	@ArquivoId int = NULL
+AS
+BEGIN
+	UPDATE [Projeto] SET [ArquivoId] = @ArquivoId WHERE [Id] = @Id
+END
+GO
+
+--Listar Projetos Entidade
 --======================================================================================================
 IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_ENTIDADE]')
 	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
@@ -242,6 +319,66 @@ CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_ENTIDADE]
 AS
 BEGIN
 	SELECT * FROM [Projeto] WHERE [EntidadeId] = @EntidadeId
+END
+GO
+
+
+--Listar Projetos Disponiveis
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_DISPONIVEIS]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_PROJETOS_DISPONIVEIS]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_DISPONIVEIS]
+AS
+BEGIN
+	SELECT * FROM [Projeto] WHERE [QtdVagas] > 0 AND [DataFim] > CONVERT(date, GETDATE())
+END
+GO
+
+--Listar Projetos Voluntario Atuais
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS]
+	@VoluntarioId int
+AS
+BEGIN
+	SELECT * FROM [Projeto] p, [VoluntarioProjeto] v WHERE p.Id = v.ProjetoId AND v.VoluntarioId = @VoluntarioId AND p.DataFim > CONVERT(date, GETDATE()) AND v.Aprovado = 1
+END
+GO
+
+--Listar Projetos Voluntario Pendentes
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES]
+	@VoluntarioId int
+AS
+BEGIN
+	SELECT * FROM [Projeto] p, [VoluntarioProjeto] v WHERE p.Id = v.ProjetoId AND v.VoluntarioId = @VoluntarioId AND v.Aprovado = 0 AND p.DataFim > CONVERT(date, GETDATE())
+END
+GO
+
+--Listar Projetos Voluntario Concluidos
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS]
+GO
+
+CREATE PROCEDURE [DBO].[SP_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS]
+	@VoluntarioId int
+AS
+BEGIN
+	SELECT * FROM [Projeto] p, [VoluntarioProjeto] v WHERE p.Id = v.ProjetoId AND v.VoluntarioId = @VoluntarioId AND p.DataFim < CONVERT(date, GETDATE()) AND v.Aprovado = 1
 END
 GO
 
@@ -490,5 +627,149 @@ CREATE PROCEDURE [DBO].[SP_DEFINIR_ID_ARQUIVO]
 AS
 BEGIN
 	SELECT (MAX(Id) + 1) FROM [Arquivo]
+END
+GO
+
+
+--==========================================================TABELA VoluntarioProjeto========================================================================
+
+--Salvar VoluntarioProjeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SALVAR_VOLUNTARIO_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SALVAR_VOLUNTARIO_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SALVAR_VOLUNTARIO_PROJETO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	INSERT INTO [VoluntarioProjeto] (ProjetoId, VoluntarioId, Aprovado, Selecionado) VALUES (@ProjetoId, @VoluntarioId, 0, 0)
+END
+GO
+
+--Excluir VoluntarioProjeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_EXCLUIR_VOLUNTARIO_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_EXCLUIR_VOLUNTARIO_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_EXCLUIR_VOLUNTARIO_PROJETO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	DELETE FROM [VoluntarioProjeto] WHERE [ProjetoId] = @ProjetoId AND [VoluntarioId] = @VoluntarioId
+END
+GO
+
+--Verificar VoluntarioProjeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_VERIFICAR_VOLUNTARIO_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_VERIFICAR_VOLUNTARIO_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_VERIFICAR_VOLUNTARIO_PROJETO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	SELECT * FROM [VoluntarioProjeto] WHERE [ProjetoId] = @ProjetoId AND [VoluntarioId] = @VoluntarioId
+END
+GO
+
+--Verificar VoluntarioProjeto Selecionado
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_VERIFICAR_VOLUNTARIO_SELECIONADO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_VERIFICAR_VOLUNTARIO_SELECIONADO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_VERIFICAR_VOLUNTARIO_SELECIONADO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	SELECT * FROM [VoluntarioProjeto] WHERE [ProjetoId] = @ProjetoId AND [VoluntarioId] = @VoluntarioId AND [Selecionado] = 1
+END
+GO
+
+--Selecionar VoluntarioProjeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_SELECIONAR_VOLUNTARIO_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_SELECIONAR_VOLUNTARIO_PROJETO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	UPDATE [VoluntarioProjeto] SET [Selecionado] = 1 WHERE [ProjetoId] = @ProjetoId AND [VoluntarioId] = @VoluntarioId
+END
+GO
+
+--Selecionar VoluntarioProjeto
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_REMOVER_VOLUNTARIO_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_REMOVER_VOLUNTARIO_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_REMOVER_VOLUNTARIO_PROJETO]
+	@VoluntarioId int,
+	@ProjetoId int
+AS
+BEGIN
+	UPDATE [VoluntarioProjeto] SET [Selecionado] = 0 WHERE [ProjetoId] = @ProjetoId AND [VoluntarioId] = @VoluntarioId
+END
+GO
+
+--Quantidade Candidatos Selecionados
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_VER_QTD_VOLUNTARIOS_SELECIONADOS]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_VER_QTD_VOLUNTARIOS_SELECIONADOS]
+GO
+
+CREATE PROCEDURE [DBO].[SP_VER_QTD_VOLUNTARIOS_SELECIONADOS]
+	@ProjetoId int
+AS
+BEGIN
+	SELECT COUNT(*) FROM [VoluntarioProjeto] WHERE [ProjetoId] = @ProjetoId AND [Selecionado] = 1
+END
+GO
+
+--ENCERRAR PROJETO
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_ENCERRAR_PROJETO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_ENCERRAR_PROJETO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_ENCERRAR_PROJETO]
+	@ProjetoId int
+AS
+BEGIN
+	UPDATE [VoluntarioProjeto] SET [Aprovado] = 1 WHERE [ProjetoId] = @ProjetoId AND [Selecionado] = 1
+END
+GO
+
+--VERIFICAR PROJETO ENCERRADO
+--======================================================================================================
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[SP_VERIFICAR_PROJETO_ENCERRADO]')
+	AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+	DROP PROCEDURE [DBO].[SP_VERIFICAR_PROJETO_ENCERRADO]
+GO
+
+CREATE PROCEDURE [DBO].[SP_VERIFICAR_PROJETO_ENCERRADO]
+	@ProjetoId int
+AS
+BEGIN
+	SELECT COUNT(*) FROM [VoluntarioProjeto] WHERE [Aprovado] = 1 AND [ProjetoId] = @ProjetoId
 END
 GO

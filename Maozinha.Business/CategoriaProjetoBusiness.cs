@@ -31,6 +31,7 @@ namespace Maozinha.Business
                 using (UnitOfWorkAdo unit = new UnitOfWorkAdo(_connectionString))
                 {
                     CategoriaProjetoModel cat = new CategoriaProjetoModel();
+                    cat.Id = id;
 
                     return unit.CategoriasProjeto.SelecionarPorId(cat);
                 }

@@ -14,8 +14,13 @@ namespace Maozinha.UI.Web.ViewModel
 
         public List<VoluntarioModel> ListaSelecionados { get; set; }
 
+        public int QtdSelecionados { get; set; }
+
+        public bool Selecionado { get; set; }
+
         public VerVoluntariosViewModel()
         {
+            Selecionado = false;
             ListaVoluntarios = new List<VoluntarioModel>();
         }
     }

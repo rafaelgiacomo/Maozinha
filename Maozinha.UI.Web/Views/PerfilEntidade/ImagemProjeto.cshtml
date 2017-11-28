@@ -1,0 +1,43 @@
+﻿@model Maozinha.UI.Web.ViewModel.ImagemProjetoViewModel
+
+@using Maozinha.UI.Web.ViewModel;
+
+@{
+    ViewBag.Title = "Definir Imagem do Projeto";
+}
+
+<div class="container body-content">
+    <div class="col-md-12">
+        <h3 class="borda">Definir Imagem para o Projeto</h3> <br>
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+
+                <div class="row">
+
+                    @foreach (var item in Model.Imagens)
+                    {
+                        <div class="col-md-3">
+                            <center>
+                                <img style="width: 250px; height: 250px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Id.ToString()@item.Tipo" />
+                                <br><br>
+                                @Html.ActionLink("Definir Imagem para o Projeto", "DefinirImagemProjeto", "PerfilEntidade", new { @arquivoId = item.Id, @projetoId = Model.ProjetoId }, new { @class = "btn btn-primary btn-xs" })
+                            </center>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+            <p class="text-red">@ViewBag.Mensagem</p>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

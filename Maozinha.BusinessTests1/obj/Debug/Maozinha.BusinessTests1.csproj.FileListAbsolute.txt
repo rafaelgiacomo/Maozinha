@@ -12,3 +12,17 @@ C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.BusinessTests1\bin\Debug\M
 C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.csprojResolveAssemblyReference.cache
 C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.dll
 C:\Users\mateusmfrias\Source\Repos\Maozinha2\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.BusinessTests1.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.BusinessTests1.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Business.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Model.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Repository.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Interface.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Business.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Model.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Repository.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\bin\Debug\Maozinha.Interface.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.BusinessTests1\obj\Debug\Maozinha.BusinessTests1.pdb

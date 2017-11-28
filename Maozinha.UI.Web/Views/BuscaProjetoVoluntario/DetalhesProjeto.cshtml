@@ -1,0 +1,121 @@
+﻿@model Maozinha.UI.Web.ViewModel.ProjetoViewModel
+
+@{
+    ViewBag.Title = "Detalhes do Projeto";
+}
+
+<div class="container body-content">
+    <div class="col-md-12">
+        <h3 class="borda">Detalhes do Projeto</h3> <br>
+
+        @using (Html.BeginForm("DetalhesProjeto", "BuscaProjetoVoluntario"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.EntidadeId)
+                @Html.HiddenFor(model => model.JaInscrito)
+
+                <div class="form-group">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+                            <hr/>
+                            @Model.Nome
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.DataInicio, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.DataInicio
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.DataFim, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.DataFim
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.QtdVagas, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.QtdVagas
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.Endereco
+                        </div>
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.Uf, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.Uf
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.Cidade
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CategoriaId, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.NomeCategoria
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label" })<br />
+                            <hr />
+                            @Model.Descricao
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="text-red">@ViewBag.Mensagem</p>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (Model.JaInscrito)
+                            {
+                                <input type="submit" value="Cancelar mãozinha" class="btn btn-danger" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Dar uma mãozinha" class="btn btn-success" />
+                            }                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

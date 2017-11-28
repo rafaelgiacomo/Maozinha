@@ -195,11 +195,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuscaProjetoVoluntarioController.cs" />
+    <Compile Include="Controllers\FotosVoluntarioController.cs" />
     <Compile Include="Controllers\FotosEntidadeController.cs" />
     <Compile Include="Controllers\PerfilEntidadeController.cs" />
     <Compile Include="Controllers\ContaEntidadeController.cs" />
     <Compile Include="Controllers\ContaVoluntarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PerfilVoluntarioController.cs" />
+    <Compile Include="Controllers\ProjetosVoluntarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,7 +213,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ArquivoViewModel.cs" />
+    <Compile Include="ViewModel\BuscaProjetosViewModel.cs" />
+    <Compile Include="ViewModel\ImagemProjetoViewModel.cs" />
     <Compile Include="ViewModel\IndexFotosEntidadeViewModel.cs" />
+    <Compile Include="ViewModel\IndexProjetosVoluntarioViewModel.cs" />
+    <Compile Include="ViewModel\VerMaisVoluntarioViewModel.cs" />
     <Compile Include="ViewModel\VerVoluntariosViewModel.cs" />
     <Compile Include="ViewModel\IndexProjetosEntidadeViewModel.cs" />
     <Compile Include="ViewModel\ProjetoViewModel.cs" />
@@ -274,7 +282,7 @@
     <Content Include="Views\ContaEntidade\Salvar.cshtml" />
     <Content Include="Views\ContaVoluntario\Salvar.cshtml" />
     <Content Include="Views\Shared\_MenuVoluntarioPartial.cshtml" />
-    <Content Include="Views\PerfilEntidade\IndexVoluntario.cshtml" />
+    <Content Include="Views\BuscaProjetoVoluntario\Index.cshtml" />
     <Content Include="Views\PerfilEntidade\IndexEntidade.cshtml" />
     <Content Include="Views\Shared\_MenuEntidadePartial.cshtml" />
     <Content Include="Views\Shared\_MenuLeftEntidadePartial.cshtml" />
@@ -286,6 +294,14 @@
     <Content Include="Views\FotosEntidade\Index.cshtml" />
     <Content Include="Views\FotosEntidade\Adicionar.cshtml" />
     <Content Include="Views\PerfilEntidade\EditarInfo.cshtml" />
+    <Content Include="Views\PerfilVoluntario\Index.cshtml" />
+    <Content Include="Views\FotosVoluntario\Adicionar.cshtml" />
+    <Content Include="Views\FotosVoluntario\Index.cshtml" />
+    <Content Include="Views\BuscaProjetoVoluntario\DetalhesProjeto.cshtml" />
+    <Content Include="Views\ProjetosVoluntario\Index.cshtml" />
+    <Content Include="Views\PerfilEntidade\ImagemProjeto.cshtml" />
+    <Content Include="Views\PerfilEntidade\VerMaisVoluntario.cshtml" />
+    <Content Include="Views\PerfilEntidade\VoluntariosSelecionados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

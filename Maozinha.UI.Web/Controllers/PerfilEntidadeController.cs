@@ -1,7 +1,6 @@
 ﻿using Maozinha.UI.Web.ViewModel;
 using System.Web.Mvc;
 using Maozinha.Business;
-using Maozinha.Model;
 using System.Web.Security;
 using System.Configuration;
 using System;
@@ -16,6 +15,8 @@ namespace Maozinha.UI.Web.Controllers
         private readonly EntidadeBusiness _entidadeBusiness;
         private readonly ProjetoBusiness _projBusiness;
         private readonly CategoriaProjetoBusiness _categoriaBusiness;
+        private readonly ArquivoEntidadeBusiness _arqBusiness;
+        private readonly VoluntarioBusiness _volBusiness;
 
         #endregion
 
@@ -46,6 +47,11 @@ namespace Maozinha.UI.Web.Controllers
             if (usuario != null)
             {
                 viewModel.ListaProjetos = _projBusiness.ListarPorEntidade(usuario.Id);
+
+                foreach (var item in viewModel.ListaProjetos)
+                {
+                    item.Encerrado = _projBusiness.VerificarProjetoEncerrado(item.Id);
+                }
             }
 
             return View(viewModel);
@@ -98,6 +104,25 @@ namespace Maozinha.UI.Web.Controllers
             viewModel.ParaViewModel(entidade);
 
             return View(viewModel);
+        }
+
+        public ActionResult ImagemProjeto(int id)
+        {
+            var entidade = _entidadeBusiness.SelecionarPorLogin(User.Identity.Name);
+
+            ImagemProjetoViewModel viewModel = new ImagemProjetoViewModel();
+
+            viewModel.Imagens = _arqBusiness.ListarPorEntidade(entidade.Id);
+            viewModel.ProjetoId = id;
+
+            return View(viewModel);
+        }
+
+        public ActionResult DefinirImagemProjeto(int arquivoId, int projetoId)
+        {
+            _projBusiness.DefinirImagemProjeto(arquivoId, projetoId);
+
+            return RedirectToAction("Projetos");
         }
 
         [HttpPost]
@@ -161,6 +186,27 @@ namespace Maozinha.UI.Web.Controllers
             return View(viewModel);
         }
 
+        public ActionResult VerMaisVoluntario(int voluntarioId, int projetoId)
+        {
+            VerMaisVoluntarioViewModel viewModel = new VerMaisVoluntarioViewModel();
+
+            var voluntario = _volBusiness.SelecionarPorId(voluntarioId);
+
+            viewModel.ParaViewModel(voluntario);
+            viewModel.ProjetoId = projetoId;
+            viewModel.Selecionado = _projBusiness.VerificarVoluntarioSelecionado(projetoId, voluntarioId);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult VerMaisVoluntario(VerMaisVoluntarioViewModel viewModel)
+        {
+            _projBusiness.SelecionarCandidatoProjeto(viewModel.ProjetoId, viewModel.Id);
+
+            return RedirectToAction("VerVoluntarios", new { @id = viewModel.ProjetoId });
+        }
+
         [HttpPost]
         public ActionResult EditarInfo(ContaEntidadeViewModel viewModel)
         {
@@ -189,11 +235,46 @@ namespace Maozinha.UI.Web.Controllers
 
             VerVoluntariosViewModel viewModel = new VerVoluntariosViewModel();
 
+            viewModel.ListaVoluntarios = _volBusiness.ListarCandidatosPorProjeto(id);
             viewModel.Projeto = entidade;
+            viewModel.QtdSelecionados = _projBusiness.VerQtdSelecionados(id);
 
             return View(viewModel);
         }
 
+        public ActionResult VoluntariosSelecionados(int id)
+        {
+
+            var entidade = _projBusiness.SelecionarProjetoPorId(id);
+
+            if (entidade == null)
+            {
+                TempData["mensagem"] = "Ocorreu um erro ao carregar dados.";
+                return RedirectToAction("Erro");
+            }
+
+            VerVoluntariosViewModel viewModel = new VerVoluntariosViewModel();
+
+            viewModel.ListaVoluntarios = _volBusiness.ListarSelecionadosPorProjeto(id);
+            viewModel.Projeto = entidade;
+            viewModel.QtdSelecionados = _projBusiness.VerQtdSelecionados(id);
+
+            return View(viewModel);
+        }
+
+        public ActionResult RemoverSelecionado(int projetoId, int voluntarioId)
+        {
+            _projBusiness.RemoverSelecionadoProjeto(projetoId, voluntarioId);
+            return RedirectToAction("VoluntariosSelecionados", new { @id = projetoId });
+        }
+
+        public ActionResult EncerrarSelecao(int projetoId)
+        {
+            _projBusiness.EncerrarSelecao(projetoId);
+
+            return RedirectToAction("Projetos");
+        }
+        
         public ActionResult IndexVoluntario()
         {
             return View();
@@ -210,6 +291,8 @@ namespace Maozinha.UI.Web.Controllers
             _entidadeBusiness = new EntidadeBusiness(_connectionString);
             _projBusiness = new ProjetoBusiness(_connectionString);
             _categoriaBusiness = new CategoriaProjetoBusiness(_connectionString);
+            _arqBusiness = new ArquivoEntidadeBusiness(_connectionString);
+            _volBusiness = new VoluntarioBusiness(_connectionString);
         }
 
         #endregion

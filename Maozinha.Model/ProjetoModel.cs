@@ -34,6 +34,8 @@ namespace Maozinha.Model
 
         public int QtdVagas { get; set; }
 
+        public bool Encerrado { get; set; }
+
         public EntidadeModel Entidade { get; set; }
 
         public CategoriaProjetoModel Categoria { get; set; }

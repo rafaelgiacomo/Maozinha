@@ -14,10 +14,18 @@ namespace Maozinha.Repository
 
         private const string PROCEDURE_LISTAR_TODOS = "SP_LISTAR_TODOS_PROJETOS";
         private const string PROCEDURE_LISTAR_PROJETOS_ENTIDADE = "SP_LISTAR_PROJETOS_ENTIDADE";
+        private const string PROCEDURE_LISTAR_DISPONIVEIS = "SP_LISTAR_PROJETOS_DISPONIVEIS";
         private const string PROCEDURE_SELECIONAR_ID = "SP_SELECIONAR_PROJETO_ID";
         private const string PROCEDURE_SALVAR = "SP_SALVAR_PROJETO";
+        private const string PROCEDURE_ENCERRAR = "SP_ENCERRAR_PROJETO";
+        private const string PROCEDURE_VERIFICAR_PROJETO_ENCERRADO = "SP_VERIFICAR_PROJETO_ENCERRADO";
         private const string PROCEDURE_ALTERAR = "SP_ALTERAR_PROJETO";
+        private const string PROCEDURE_ALTERAR_IMAGEM = "SP_ALTERAR_IMAGEM_PROJETO";
         private const string PROCEDURE_EXCLUIR = "SP_EXCLUIR_PROJETO";
+        private const string PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO = "SP_LISTAR_PROJETOS_VOLUNTARIO";
+        private const string PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS = "SP_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS";
+        private const string PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES = "SP_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES";
+        private const string PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS = "SP_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS";
 
         public const string COLUNA_ID = "Id";
         public const string COLUNA_NOME = "Nome";
@@ -35,6 +43,28 @@ namespace Maozinha.Repository
         #endregion
 
         #region Metodos Publicos
+
+        public void AlterarImagem(int arquivoId, int projetoId)
+        {
+            try
+            {
+                string[] parameters =
+                {
+                    COLUNA_ID, COLUNA_ARQUIVO_ID
+                };
+
+                object[] values =
+                {
+                    projetoId, arquivoId
+                };
+
+                _context.ExecuteProcedureNoReturn(PROCEDURE_ALTERAR_IMAGEM, parameters, values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public void Alterar(ProjetoModel entidade)
         {
@@ -106,6 +136,59 @@ namespace Maozinha.Repository
             }
         }
 
+        public void EncerrarSelecao(int projetoId)
+        {
+            try
+            {
+                string[] parameters =
+                {
+                    VoluntarioProjetoRep.COLUNA_PROJETO_ID
+                };
+
+                object[] values =
+                {
+                    projetoId
+                };
+
+                _context.ExecuteProcedureNoReturn(PROCEDURE_ENCERRAR, parameters, values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool VerificarProjetoEncerrado(int projetoId)
+        {
+            try
+            {
+                int qtd = 0;
+
+                string[] parameters =
+                {
+                    VoluntarioProjetoRep.COLUNA_PROJETO_ID
+                };
+
+                object[] values =
+                {
+                    projetoId
+                };
+
+                var reader = _context.ExecuteProcedureWithReturn(PROCEDURE_VERIFICAR_PROJETO_ENCERRADO, parameters, values);
+
+                if (reader.Read())
+                {
+                    qtd = int.Parse(reader[0].ToString());
+                }
+
+                return (qtd > 0);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ProjetoModel SelecionarPorId(ProjetoModel entidade)
         {
             try
@@ -162,6 +245,35 @@ namespace Maozinha.Repository
             }
         }
 
+        public List<ProjetoModel> ListarProjetosDisponiveis()
+        {
+            try
+            {
+                List<ProjetoModel> lista = new List<ProjetoModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { };
+                object[] values = { };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_DISPONIVEIS, parameters, values);
+
+                while (reader.Read())
+                {
+                    var entidade = ReaderEmObjeto(reader);
+
+                    lista.Add(entidade);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
         public List<ProjetoModel> ListarProjetosEntidadeId(ProjetoModel entidade)
         {
             try
@@ -173,6 +285,122 @@ namespace Maozinha.Repository
                 object[] values = { entidade.EntidadeId };
 
                 reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_PROJETOS_ENTIDADE, parameters, values);
+
+                while (reader.Read())
+                {
+                    var proj = ReaderEmObjeto(reader);
+
+                    lista.Add(proj);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
+        public List<ProjetoModel> ListarProjetosVoluntarioId(int voluntarioId)
+        {
+            try
+            {
+                List<ProjetoModel> lista = new List<ProjetoModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_VOLUNTARIO_ID };
+                object[] values = { voluntarioId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO, parameters, values);
+
+                while (reader.Read())
+                {
+                    var proj = ReaderEmObjeto(reader);
+
+                    lista.Add(proj);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
+        public List<ProjetoModel> ListarProjetosVoluntarioAtuais(int voluntarioId)
+        {
+            try
+            {
+                List<ProjetoModel> lista = new List<ProjetoModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_VOLUNTARIO_ID };
+                object[] values = { voluntarioId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_ATUAIS, parameters, values);
+
+                while (reader.Read())
+                {
+                    var proj = ReaderEmObjeto(reader);
+
+                    lista.Add(proj);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
+        public List<ProjetoModel> ListarProjetosVoluntarioPendentes(int voluntarioId)
+        {
+            try
+            {
+                List<ProjetoModel> lista = new List<ProjetoModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_VOLUNTARIO_ID };
+                object[] values = { voluntarioId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_PENDENTES, parameters, values);
+
+                while (reader.Read())
+                {
+                    var proj = ReaderEmObjeto(reader);
+
+                    lista.Add(proj);
+                }
+
+                reader.Close();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Classe: TipoUsuarioRep, Metodo: ListarTodos Mensagem: " + ex.Message, ex);
+            }
+        }
+
+        public List<ProjetoModel> ListarProjetosVoluntarioConcluidos(int voluntarioId)
+        {
+            try
+            {
+                List<ProjetoModel> lista = new List<ProjetoModel>();
+                SqlDataReader reader = null;
+
+                string[] parameters = { VoluntarioProjetoRep.COLUNA_VOLUNTARIO_ID };
+                object[] values = { voluntarioId };
+
+                reader = _context.ExecuteProcedureWithReturn(PROCEDURE_LISTAR_PROJETOS_VOLUNTARIO_CONCLUIDOS, parameters, values);
 
                 while (reader.Read())
                 {

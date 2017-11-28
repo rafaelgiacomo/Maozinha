@@ -19,6 +19,10 @@ namespace Maozinha.UI.Web.ViewModel
         [DataType(DataType.MultilineText)]
         public string Descricao { get; set; }
 
+        [Required]
+        [Display(Name = "Data de Nascimento")]
+        public string DataNascimento { get; set; }
+
         #endregion
 
         #region Metodos Publicos
@@ -38,6 +42,7 @@ namespace Maozinha.UI.Web.ViewModel
             ent.ArquivoId = ArquivoId;
             ent.Cpf = Cpf;
             ent.Descricao = Descricao;
+            ent.DataNascimento = DataNascimento;
             ent.Projetos = new List<ProjetoModel>();
 
             return ent;
@@ -57,6 +62,7 @@ namespace Maozinha.UI.Web.ViewModel
             ArquivoId = ent.ArquivoId;
             Cpf = ent.Cpf;
             Descricao = ent.Descricao;
+            DataNascimento = ent.DataNascimento;
         }
 
         #endregion

@@ -1,0 +1,98 @@
+﻿@model Maozinha.UI.Web.ViewModel.VerVoluntariosViewModel
+
+@using Maozinha.UI.Web.ViewModel;
+
+@{
+    ViewBag.Title = "Voluntários Selecionados";
+}
+
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <h3 class="borda">Voluntários Selecionados</h3>
+
+    <div class="col-md-12 resultado">
+
+        <div class="box-body">
+            <br>
+            <table id="projetos" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaVoluntarios)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.Arquivo != null)
+                                {
+                                    <img style="width: 100px; height: 100px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Arquivo.Id.ToString()@item.Arquivo.Tipo" />
+
+                                }
+                                else
+                                {
+                                    <img style="width: 100px; height: 100px;" src="" />
+                                }
+                            </td>
+                            <td>@item.Nome</td>
+                            <td>@item.DataNascimento</td>
+                            <td>@item.Telefone</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @Html.ActionLink("Ver mais", "VerMaisVoluntario", "PerfilEntidade", new { @voluntarioId = item.Id, @projetoId = Model.Projeto.Id }, new { @class = "btn btn-primary btn-xs" })
+                                @Html.ActionLink("Remover Seleção", "RemoverSelecionado", "PerfilEntidade", new { @voluntarioId = item.Id, @projetoId = Model.Projeto.Id }, new { @class = "btn btn-danger btn-xs" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+
+    <br>
+</div>
+<div class="clearfix"></div>
+<br />
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <div class="clearfix"></div>
+
+    <div class="">
+        @Html.ActionLink("Voltar", "VerVoluntarios", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Remover Seleções", "RemoverSelecoes", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "btn btn-danger" })
+    </div>
+
+</div>
+
+@section scripts
+{
+    <link href="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#projetos').DataTable({
+                language: {
+                    "url": 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json'
+                }
+            });
+        });
+    </script>
+}

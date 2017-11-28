@@ -1,0 +1,126 @@
+﻿@model Maozinha.UI.Web.ViewModel.VerMaisVoluntarioViewModel
+
+@{
+    ViewBag.Title = "Detalhes do Voluntário";
+}
+
+<div class="container body-content">
+    <h3>Detalhes do Voluntário</h3>
+
+    @using (Html.BeginForm("VerMaisVoluntario", "PerfilEntidade"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+
+                @Html.HiddenFor(model => model.Id);
+                @Html.HiddenFor(model => model.ProjetoId);
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr/>
+                        @Model.Cpf
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Nome
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Telefone
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Uf, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Uf
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Cidade
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Endereco
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.DataNascimento
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Email
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Login
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label" })<br />
+                        <hr />
+                        @Model.Descricao
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="text-red">@ViewBag.Mensagem</p>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (!Model.Selecionado)
+                        {
+                            <input type="submit" value="Aceitar Mãozinha" class="btn btn-success" />
+                        }                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

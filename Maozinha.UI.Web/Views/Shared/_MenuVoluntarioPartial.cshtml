@@ -10,8 +10,10 @@
             <ul class="nav navbar-nav">
                 <li class="maozinha"><a href="#" style="font-size:22px;">Mãozinha</a></li>
                 <li><input type="search" class="form-control" style="margin-right:47%;" id="busca" placeholder="Buscar usuários ou páginas"></li>
-                <li>@Html.ActionLink("Meu Perfil", "IndexVoluntario", "Perfil")</li>
-                <li>@Html.ActionLink("Meus Projetos", "ProjetosVoluntario", "Perfil")</li>
+                <li>@Html.ActionLink("Meu Perfil", "Index", "PerfilVoluntario")</li>
+                <li>@Html.ActionLink("Fotos", "Index", "FotosVoluntario")</li>
+                <li>@Html.ActionLink("Meus Projetos", "Index", "ProjetosVoluntario")</li>
+                <li>@Html.ActionLink("Buscar Projetos", "Index", "BuscaProjetoVoluntario")</li>
                 <li>@Html.ActionLink("Sair", "Sair", "PerfilVoluntario")</li>
             </ul>
         </div>

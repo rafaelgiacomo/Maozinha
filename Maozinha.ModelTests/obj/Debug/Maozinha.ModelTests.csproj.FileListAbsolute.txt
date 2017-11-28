@@ -1,0 +1,8 @@
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\bin\Debug\Maozinha.ModelTests.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\bin\Debug\Maozinha.ModelTests.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\bin\Debug\Maozinha.Model.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\bin\Debug\Maozinha.Model.pdb
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\obj\Debug\Maozinha.ModelTests.csprojResolveAssemblyReference.cache
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\obj\Debug\Maozinha.ModelTests.dll
+C:\Users\Rafael\Documents\Visual Studio Projects\Maozinha\Maozinha.ModelTests\obj\Debug\Maozinha.ModelTests.pdb

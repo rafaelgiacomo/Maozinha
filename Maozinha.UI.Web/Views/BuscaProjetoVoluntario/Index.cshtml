@@ -1,4 +1,6 @@
-﻿@model Maozinha.UI.Web.ViewModel.ContaEntidadeViewModel
+﻿@model Maozinha.UI.Web.ViewModel.BuscaProjetosViewModel
+
+@using Maozinha.UI.Web.ViewModel;
 
 @{
     ViewBag.Title = "Inicio - Voluntário";
@@ -121,51 +123,79 @@
             </div>
         </div>
     </div>
-    <div class="col-md-10">
-        <div class="form-group busca">
-            <input type="search" class="form-control" id="busca" placeholder="Buscar ONG pelo nome">
-        </div>
-        <div class="resultado">
-            <h3>Teto</h3>
-            <div class="vagas">
-                <h4>Vagas:</h4><span class="numero">5</span>
-            </div>
-            <img src="images/teto.png" height="380" width="380">
-            <div class="info">
-                <h4>Sobre:</h4><p>
-                    Arrecadação de fundos com apresentação de bateria universitária
-                </p>
-                <h4>Local:</h4>Av Jorge Medeiros Ribeiro, 560
-                <h4>Data:</h4>19/2/2016
-                <br>
-                <br>
-                <a href="">Mais informações</a>
-            </div>
-            <label id="loginbutton2" class="uiButton uiButtonConfirm" for="u_0_l">
-                <input type="submit" name="login" value="Dê uma mãozinha" id="login" class="btn btn-primary">
-            </label>
-            <div class="clearfix"></div>
-        </div>
-        <div class="resultado">
-            <h3>GRAAC</h3>
-            <div class="vagas">
-                <h4>Vagas:</h4><span class="numero">27</span>
-            </div>
-            <img src="images/graac.jpg" height="380" width="380">
-            <div class="info">
-                <h4>Sobre:</h4><p>
-                    Projeto com crianças carentes na região da zona leste
-                </p>
-                <h4>Local:</h4>Avenida Ministro Oscar Saraiva, 40
-                <h4>Data:</h4>16/12/2016
-                <br>
-                <br>
-                <a href="">Mais informações</a>
-            </div>
-            <label id="loginbutton1" class="uiButton uiButtonConfirm" for="u_0_l">
-                <input type="submit" name="login" value="Dê uma mãozinha" id="login" class="btn btn-primary">
-            </label>
-            <div class="clearfix"></div>
-        </div>
-    </div>
+    <div class="col-md-10 resultado">
+
+        <div class="box-body">
+            <br>
+            <table id="projetos" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Qtd Vagas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Projetos)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.Arquivo != null)
+                                {
+                                    <img style="width: 100px; height: 100px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Arquivo.Id.ToString()@item.Arquivo.Tipo" />
+
+                                }
+                                else
+                                {
+                                    <img style="width: 100px; height: 100px;" src="" />
+                                }
+                            </td>
+                            <td>@item.Id</td>
+                            <td>@item.Nome</td>
+                            <td>@item.DataInicio</td>
+                            <td>@item.DataFim</td>
+                            <td>@item.QtdVagas</td>
+                            <td>
+                                @Html.ActionLink("Ver Detalhes", "DetalhesProjeto", "BuscaProjetoVoluntario", new { @projetoId = item.Id }, new { @class = "btn btn-primary btn-xs" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Qtd Vagas</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
 </div>
+
+@section scripts
+{
+    <link href="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#projetos').DataTable({
+                language: {
+                    "url": 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json'
+                }
+            });
+        });
+    </script>
+}
+
+

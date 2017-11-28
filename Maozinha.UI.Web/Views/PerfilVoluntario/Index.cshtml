@@ -1,0 +1,34 @@
+﻿@model Maozinha.UI.Web.ViewModel.ContaVoluntarioViewModel
+
+@{
+    ViewBag.Title = "Perfil Entidade";
+}
+
+<div class="col-md-12">
+    <h3 class="borda">Sobre o Voluntário</h3>
+
+    <div class="resultado">
+        <h3>@Model.Nome</h3><hr />
+
+        <div class="info">
+            <h4>Sobre:</h4><p>
+                @Model.Descricao
+            </p>
+            <h4>Endereço: </h4>@Model.Endereco - @Model.Uf - @Model.Cidade
+            <h4>Email: </h4>@Model.Email
+            <h4>Telefone: </h4>@Model.Telefone
+            <h4>CNPJ: </h4>@Model.Cpf
+            <br>
+            <br>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            @Html.ActionLink("Editar informações de perfil", "EditarInfo", "PerfilEntidade", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="clearfix"></div>
+
+        <br>
+    </div>
+</div>

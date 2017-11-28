@@ -49,6 +49,8 @@ namespace Maozinha.Model
 
         public TipoUsuarioModel TipoUsuario { get; set; }
 
+        public ArquivoModel Arquivo { get; set; }
+
         #endregion
 
         #region Metodos para definir senha criptografada

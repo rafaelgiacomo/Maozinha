@@ -1,5 +1,7 @@
 ﻿@model Maozinha.UI.Web.ViewModel.VerVoluntariosViewModel
 
+@using Maozinha.UI.Web.ViewModel;
+
 @{
     ViewBag.Title = "Voluntários candidatos";
 }
@@ -33,7 +35,7 @@
         </div>
 
         <div class="col-md-3">
-            <label>Candidatos Selecionados: </label> 0
+            <label>@Html.ActionLink("Candidatos Selecionados: " + Model.QtdSelecionados, "VoluntariosSelecionados", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "" })</label>
         </div>
 
     </div>
@@ -51,6 +53,7 @@
             <table id="projetos" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Nome</th>
                         <th>Data de Nascimento</th>
                         <th>Telefone</th>
@@ -62,20 +65,30 @@
                     @foreach (var item in Model.ListaVoluntarios)
                     {
                         <tr>
+                            <td>
+                                @if (item.Arquivo != null)
+                                {
+                                    <img style="width: 100px; height: 100px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Arquivo.Id.ToString()@item.Arquivo.Tipo" />
+
+                                }
+                                else
+                                {
+                                    <img style="width: 100px; height: 100px;" src="" />
+                                }
+                            </td>
                             <td>@item.Nome</td>
                             <td>@item.DataNascimento</td>
                             <td>@item.Telefone</td>
                             <td>@item.Email</td>
                             <td>
-                                @Html.ActionLink("Ver Voluntários", "VerVoluntarios", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-primary btn-xs" })
-                                @Html.ActionLink("Editar", "EditarProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-success btn-xs" })
-                                @Html.ActionLink("Excluir", "ExcluirProjeto", "PerfilEntidade", new { @id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                                @Html.ActionLink("Ver mais", "VerMaisVoluntario", "PerfilEntidade", new { @voluntarioId = item.Id, @projetoId = Model.Projeto.Id }, new { @class = "btn btn-primary btn-xs" })
                             </td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th>Nome</th>
                         <th>Data de Nascimento</th>
                         <th>Telefone</th>
@@ -97,8 +110,7 @@
 
     <div class="">
         @Html.ActionLink("Voltar", "Projetos", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Remover Seleções", "RemoverSelecoes", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "btn btn-danger" })
-        @Html.ActionLink("Encerrar Seleção", "EncerrarSelecoes", "PerfilEntidade", new { @id = Model.Projeto.Id }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Encerrar Seleção", "EncerrarSelecao", "PerfilEntidade", new { @projetoId = Model.Projeto.Id }, new { @class = "btn btn-success" })
     </div>
 
 </div>

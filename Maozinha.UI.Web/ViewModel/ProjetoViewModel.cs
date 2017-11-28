@@ -51,8 +51,13 @@ namespace Maozinha.UI.Web.ViewModel
         [Display(Name = "Categoria do Projeto")]
         public int CategoriaId { get; set; }
 
+        [Display(Name = "Categoria do Projeto")]
+        public string NomeCategoria { get; set; }
+
         [Display(Name = "Foto para o projeto")]
         public int ArquivoId { get; set; }
+
+        public bool JaInscrito { get; set; }
 
         public SelectList CategoriaLista { get; set; }
 

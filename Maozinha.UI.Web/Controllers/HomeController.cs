@@ -31,7 +31,7 @@ namespace Maozinha.UI.Web.Controllers
 
                     if (usuario.Descriminador == UsuarioModel.DescriminadorVoluntario)
                     {
-                        return RedirectToAction("IndexVoluntario", "PerfilVoluntario");
+                        return RedirectToAction("Index", "PerfilVoluntario");
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace Maozinha.UI.Web.Controllers
                                 return Redirect(returnUrl);
                             }
 
-                            return RedirectToAction("IndexVoluntario", "PerfilVoluntario");
+                            return RedirectToAction("Index", "PerfilVoluntario");
                         }
                         else
                         {

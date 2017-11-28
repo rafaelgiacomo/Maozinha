@@ -1,0 +1,78 @@
+﻿@using Maozinha.UI.Web.ViewModel
+
+@model Maozinha.UI.Web.ViewModel.IndexFotosEntidadeViewModel
+
+@{
+    ViewBag.Title = "Fotos da Entidade";
+}
+
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <h3 class="borda">Fotos do Voluntário</h3>
+
+    <br>
+    @Html.ActionLink("Adicionar Foto", "Adicionar", "FotosVoluntario", null, new { @class = "btn btn-primary" })
+    <br><br>
+
+    <div class="col-md-12 resultado">
+
+        <div class="box-body">
+            <br>
+            <table id="projetos" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaFotos)
+                    {
+                        <tr>
+                            <td><img style="width: 150px; height: 150px;" src="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Id.ToString()@item.Tipo" /></td>
+                            <td>@item.Id</td>
+                            <td>@item.Titulo</td>
+                            <td>@item.Descricao</td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" href="@ArquivoViewModel.CaminhoUpload.Remove(0, 1)/@item.Id.ToString()@item.Tipo">Ver</a>
+                                @Html.ActionLink("Download", "Download", "FotosVoluntario", new { @id = item.Id }, new { @class = "btn btn-success btn-xs" })
+                                @Html.ActionLink("Excluir", "Excluir", "FotosVoluntario", new { @id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+<div class="clearfix"></div>
+<br><br>
+
+@section scripts
+{
+    <link href="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#projetos').DataTable({
+                language: {
+                    "url": 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json'
+                }
+            });
+        });
+    </script>
+}
